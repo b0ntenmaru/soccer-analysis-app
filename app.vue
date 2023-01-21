@@ -11,6 +11,7 @@ const { data: users } = useFetch<Array<UserJson>>('api/users', {
 
 <template>
   <div>
+    <v-btn class="ma-5" color="primary">my-btn</v-btn>
     {{ users }}
   </div>
 </template>
