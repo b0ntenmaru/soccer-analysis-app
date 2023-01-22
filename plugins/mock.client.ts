@@ -1,9 +1,11 @@
-import { worker } from "@/mocks/browser";
-
 export default defineNuxtPlugin(async () => {
-  if (process.env.NODE_ENV === 'development') { // NODE_ENVのが適切かもしれない
+  if (process.env.NODE_ENV === 'development') {
+    const { setupWorker } = await import('msw')
+    const { handlers } = await import('@/mocks/handlers')
+
+    const worker = setupWorker(...handlers);
     await worker.start({
-      onUnhandledRequest: "bypass",
+      onUnhandledRequest: 'bypass',
     });
   }
 });
