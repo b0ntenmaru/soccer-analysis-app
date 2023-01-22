@@ -1,4 +1,4 @@
-import type { LeagueListData } from '@/types/FootyStatsApi'
+import type { LeagueListData } from '@/types/footy_stats_api'
 
 export const mockLeagueListData: LeagueListData = [
   {
