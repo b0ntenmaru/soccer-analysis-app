@@ -4,4 +4,3 @@ import { createLeagueListDataMock } from '~~/mocks/leagueList/createLeagueListDa
 export const handlers = [
   createUsersMock(),
   createLeagueListDataMock(),
-];
