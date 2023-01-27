@@ -11,4 +11,4 @@ type League = {
   season: Array<Season>;
 };
 
-export type LeagueListData = Array<League>
+type LeagueListData = Array<League>
