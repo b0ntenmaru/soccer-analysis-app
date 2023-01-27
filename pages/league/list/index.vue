@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { data } = useFetch('/api/league-list');
+const { data } = useFetch('/api/league/list');
 </script>
 
 <template>
