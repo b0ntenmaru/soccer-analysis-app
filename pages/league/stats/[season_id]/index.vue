@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const seasonId = useRoute().params.season_id;
-const { data } = await useFetch(`/api/league-season/${seasonId}`)
+const { data } = await useFetch(`/api/league/season/${seasonId}/stats`)
 </script>
 
 <template>

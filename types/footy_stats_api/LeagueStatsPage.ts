@@ -1,7 +1,7 @@
 /**
  * リーグスタッツAPIが返却する値
  */
-type LeagueStatsPage = {
+type LeagueStatsData = {
   season_id: number;
   name: string;
   english_name: string;
