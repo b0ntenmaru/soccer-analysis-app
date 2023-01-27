@@ -10,7 +10,5 @@ const { data: users } = useFetch<Array<UserJson>>('api/users', {
 </script>
 
 <template>
-  <div>
-    {{ users }}
-  </div>
+  <NuxtPage />
 </template>
