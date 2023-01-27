@@ -8,7 +8,6 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "msw": "^0.49.3",
     "nuxt": "^3.0.0"
   },
   "msw": {
