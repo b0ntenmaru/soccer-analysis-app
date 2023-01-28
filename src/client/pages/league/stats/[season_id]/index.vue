@@ -4,61 +4,35 @@ const { data: leagueStats } = await useFetch(`/api/league/season/${seasonId}/sta
 </script>
 
 <template>
-  <h1>リーグスタッツ閲覧画面</h1>
-  <div v-if="leagueStats">
-    <ul>
-      <li>
-        {{ leagueStats.name }}
-      </li>
-      <li>
-        {{ leagueStats.name_jp }}
-      </li>
-      <li>
-        {{ leagueStats.country }}
-      </li>
-      <li>
-        {{ leagueStats.division }}
-      </li>
-      <li>
-        {{ leagueStats.starting_year }}
-      </li>
-      <li>
-        {{ leagueStats.ending_year }}
-      </li>
-      <li>
-        <img :src="leagueStats.image" />
-      </li>
-      <li>
-        {{ leagueStats.club_num }}
-      </li>
-      <li>
-        {{ leagueStats.totalMatches }}
-      </li>
-      <li>
-        {{ leagueStats.matchesCompleted }}
-      </li>
-      <li>
-        {{ leagueStats.canceledMatchesNum }}
-      </li>
-      <li>
-        {{ leagueStats.progress }} %
-      </li>
+  <template v-if="leagueStats">
+    <!-- サブカラム -->
+    <!-- リーグプロフィール -->
+    <div class="w-full lg:w-2/6">
+      <SectionCard>
+        <LeagueProfile
+          v-bind="leagueStats"
+        />
+      </SectionCard>
 
-      <h1>得点ランキング</h1>
-      <ul>
-        <li v-for="player in leagueStats.top_scorers">
-          {{ player.full_name }}
-        </li>
-      </ul>
+      <!-- 得点ランキング -->
+      <SectionCard>
+        <div class="font-bold">
+          得点ランキング
+        </div>
+        <div class="mb-3"></div>
+        <div v-for="scorer in leagueStats.top_scorers">
+          {{  scorer.full_name }}
+        </div>
+      </SectionCard>
+    </div>
 
-      <h1>アシストランキング</h1>
-      <ul>
-        アシストランキング
-        <li v-for="player in leagueStats.top_assists">
-          {{ player.full_name }}
-        </li>
-      </ul>
-    </ul>
-
-  </div>
+    <!-- メインカラム -->
+    <div class="w-full lg:w-4/6">
+      <SectionCard>
+        <div class="flex">
+          あああああ
+        </div>
+      </SectionCard>
+    </div>
+  </template>
 </template>
