@@ -5,6 +5,7 @@ const { data: leagueStats } = await useFetch(`/api/league/season/${seasonId}/sta
 
 <template>
   <h1>リーグスタッツ閲覧画面</h1>
+
   <div v-if="leagueStats">
     <ul>
       <li>
