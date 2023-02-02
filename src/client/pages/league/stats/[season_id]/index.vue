@@ -1,20 +1,16 @@
 <script setup lang="ts">
-const seasonId = useRoute().params.season_id;
-const { data: leagueStats } = await useFetch(`/api/league/season/${seasonId}/stats`)
+// const seasonId = useRoute().params.season_id;
+// const { data: leagueStats } = await useFetch(`/api/league/season/${seasonId}/stats`)
 </script>
 
 <template>
-  <template v-if="leagueStats">
-    <!-- サブカラム -->
-    <!-- リーグプロフィール -->
+  <!-- <template v-if="leagueStats">
     <div class="w-full lg:w-2/6">
       <SectionCard>
         <LeagueProfile
           v-bind="leagueStats"
         />
       </SectionCard>
-
-      <!-- 得点ランキング -->
       <SectionCard>
         <div class="font-bold">
           得点ランキング
@@ -26,7 +22,7 @@ const { data: leagueStats } = await useFetch(`/api/league/season/${seasonId}/sta
       </SectionCard>
     </div>
 
-    <!-- メインカラム -->
+
     <div class="w-full lg:w-4/6">
       <SectionCard>
         <div class="flex">
@@ -34,5 +30,5 @@ const { data: leagueStats } = await useFetch(`/api/league/season/${seasonId}/sta
         </div>
       </SectionCard>
     </div>
-  </template>
+  </template> -->
 </template>
