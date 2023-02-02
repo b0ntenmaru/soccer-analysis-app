@@ -17,6 +17,9 @@ type League = {
     topscorer_goals: boolean;
     topscorer_assists: boolean;
     topscorer_cards: boolean;
+  },
+  seasons: {
+    data: Array<Season>;
   }
 }
 
