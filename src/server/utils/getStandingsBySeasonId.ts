@@ -2,86 +2,11 @@ const config = useRuntimeConfig()
 const apiPath = config.public.API_PATH;
 const apiKey = config.public.API_KEY;
 
-export const getStandingsBySeasonId = async (args: { seasonId: number }): Promise<GetStandingsBySeasonIdData> => {
+export const getStandingsBySeasonId = async (args: { seasonId: number }): Promise<SeasonStandingsData> => {
   const { seasonId } = args;
   const response: any = await $fetch(`${apiPath}/standings/season/${seasonId}?api_token=${apiKey}&include=standings.team,`);
-  return convertToDto(response.data[0]);
+  return response.data;
 };
-
-/**
- * APIから渡ってくる値のデータ構造が歪、かつ不要な値も多いので必要な値に絞り込む
- */
-const convertToDto = (data: any): GetStandingsBySeasonIdData => {
-
-  const {
-    id,
-    name,
-    league_id,
-    season_id,
-    round_id,
-    round_name,
-    type,
-    stage_id,
-    stage_name,
-    resource,
-  } = data
-
-  const standings = data.standings.data.map(s => {
-    const {
-      position,
-      team_id,
-      team_name,
-      round_id,
-      round_name,
-      group_id,
-      group_name,
-      overall,
-      home,
-      away,
-      total,
-      result,
-      points,
-      recent_form,
-      status,
-    } = s
-
-    const team = s.team.data;
-
-    return {
-      position,
-      team_id,
-      team_name,
-      round_id,
-      round_name,
-      group_id,
-      group_name,
-      overall,
-      home,
-      away,
-      total,
-      result,
-      points,
-      recent_form,
-      status,
-      team
-    }
-  });
-
-
-  return {
-    id,
-    name,
-    league_id,
-    season_id,
-    round_id,
-    round_name,
-    type,
-    stage_id,
-    stage_name,
-    resource,
-    standings,
-  }
-}
 
 type GetStandingsBySeasonIdData = {
   id: number;

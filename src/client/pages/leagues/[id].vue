@@ -35,7 +35,8 @@ const selectedSeasonId = ref<number | undefined>(latestSeason.value?.id);
       </ul>
     </div>
 
-    <h1 class="text-center">Standings</h1>
-    <Standings v-if="selectedSeasonId" :season-id="selectedSeasonId" />
+    <div>
+      <StandingsTableList v-if="selectedSeasonId" :season-id="selectedSeasonId" />
+    </div>
   </template>
 </template>
