@@ -3,7 +3,6 @@ type Props = {
   seasonStandings: SeasonStandings
 }
 const props = defineProps<Props>();
-
 </script>
 
 <template>
@@ -41,7 +40,7 @@ const props = defineProps<Props>();
           {{ standingsData.overall.lost }}
         </td>
         <td>
-          {{ standingsData.recent_form }}
+          <RecentForm :recent-form="standingsData.recent_form" />
         </td>
         <td>
           {{ standingsData.points }}
@@ -57,7 +56,6 @@ td.position-wrapper {
 }
 
 span.position {
-  background: red;
   padding: 5px 8px;
   border-radius: 30px;
 }
