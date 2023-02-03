@@ -39,7 +39,7 @@ const props = defineProps<Props>();
           {{ standingsData.position }}
         </td>
         <td class="team">
-          <img width="20" :src="standingsData.team.data.logo_path" /><span>{{ standingsData.team_name }}</span>
+          <img width="20" :src="standingsData.team.data.logo_path"><span>{{ standingsData.team_name }}</span>
         </td>
         <td>
           {{ standingsData.overall.won }}

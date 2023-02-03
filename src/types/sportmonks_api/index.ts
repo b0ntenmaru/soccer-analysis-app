@@ -1,7 +1,16 @@
+type Season = {
+  id: number;
+  name: string;
+  league_id: number;
+  is_current_season: boolean;
+  current_round_id: number | null;
+  current_stage_id: number | null;
+}
+
 type League = {
   id: number;
   active: boolean;
-  type: 'domestic' | "cup_international",
+  type: 'domestic' | 'cup_international',
   legacy_id: number;
   country_id: number;
   logo_path: string;
@@ -21,15 +30,6 @@ type League = {
   seasons: {
     data: Array<Season>;
   }
-}
-
-type Season = {
-  id: number;
-  name: string;
-  league_id: number;
-  is_current_season: boolean;
-  current_round_id: number | null;
-  current_stage_id: number | null;
 }
 
 type Team = {
