@@ -13,64 +13,50 @@ watch(() => props.seasonId, async () => {
 </script>
 
 <template>
-  <div class="flex flex-col">
-    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-      <div class="py-4 inline-block min-w-full sm:px-6 lg:px-8">
-        <div class="overflow-hidden">
-          <table class="min-w-full text-center">
-            <thead class="border-b bg-gray-50">
-              <tr>
-                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">
-                  #
-                </th>
-                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">
-                  Team
-                </th>
-                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">
-                  Won
-                </th>
-                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">
-                  Draw
-                </th>
-                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">
-                  Lost
-                </th>
-                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">
-                  Last 5
-                </th>
-                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">
-                  Point
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="bg-white border-b" v-for="s in standings.standings" v-if="standings">
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  {{ s.position }}
-                </td>
-                <td class="flex text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  <img :src="s.team.logo_path" class="w-6 mr-1" />{{ s.team_name }}
-                </td>
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  {{ s.overall.won }}
-                </td>
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  {{ s.overall.draw }}
-                </td>
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  {{ s.overall.lost }}
-                </td>
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  {{ s.recent_form }}
-                </td>
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  {{ s.points }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
+  <v-table density="compact">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Team</th>
+        <th>Won</th>
+        <th>Draw</th>
+        <th>Lost</th>
+        <th>Last 5</th>
+        <th>Point</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="s in standings.standings" v-if="standings" :key="s.team_id">
+        <td>
+          {{ s.position }}
+        </td>
+        <td class="team">
+          <img width="20" :src="s.team.logo_path" /><span>{{ s.team_name }}</span>
+        </td>
+        <td>
+          {{ s.overall.won }}
+        </td>
+        <td>
+          {{ s.overall.draw }}
+        </td>
+        <td>
+          {{ s.overall.lost }}
+        </td>
+        <td>
+          {{ s.recent_form }}
+        </td>
+        <td>
+          {{ s.points }}
+        </td>
+      </tr>
+    </tbody>
+  </v-table>
 </template>
+
+<style scoped>
+td.team {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+</style>
