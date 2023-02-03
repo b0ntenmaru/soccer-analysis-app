@@ -13,13 +13,14 @@ watch(() => props.seasonId, async () => {
 
 <template>
   <div>
-    <div v-for="seasonStandingsDataItem in seasonStandingsData" :key="seasonStandingsDataItem.id" class="standings">
+    <div v-for="seasonStandings in seasonStandingsData" :key="seasonStandings.id" class="standings">
       <v-card
         outlined
+        elevation="4"
         class="standings-table-list-item"
       >
-        <h3>{{ seasonStandingsDataItem.name }}</h3>
-        <StandingsTableListItem :season-standings-data-item="seasonStandingsDataItem" />
+        <h3>{{ seasonStandings.name }}</h3>
+        <StandingsTableListItem :season-standings="seasonStandings" />
       </v-card>
     </div>
   </div>
