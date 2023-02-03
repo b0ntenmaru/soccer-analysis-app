@@ -39,7 +39,7 @@ const state = reactive({
         </v-list>
       </v-navigation-drawer>
 
-      <v-main>
+      <v-main style="background: #f1f3f8">
         <slot />
       </v-main>
     </v-layout>

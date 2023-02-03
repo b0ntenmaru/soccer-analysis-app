@@ -14,29 +14,38 @@ const selectedSeasonId = ref<number | undefined>(latestSeason.value?.id);
 
 <template>
   <div v-if="league">
-    <img :src="league.logo_path" class="w-48 inline-block">
-    <div>
-      <ul>
-        <li>
-          <span>Name</span>
-          <span>
-            {{ league.name }}
-          </span>
-        </li>
+    <div class="league-wrapper">
+      <img :src="league.logo_path" class="w-48 inline-block">
+      <div>
+        <ul>
+          <li>
+            <span>Name</span>
+            <span>
+              {{ league.name }}
+            </span>
+          </li>
 
-        <li>
-          <label for="countries">Season</label>
-          <select id="countries" v-model="selectedSeasonId">
-            <option v-for="s in league.seasons.data" :key="s.id" :value="s.id">
-              {{ s.name }}
-            </option>
-          </select>
-        </li>
-      </ul>
-    </div>
+          <li>
+            <label for="countries">Season</label>
+            <select id="countries" v-model="selectedSeasonId">
+              <option v-for="s in league.seasons.data" :key="s.id" :value="s.id">
+                {{ s.name }}
+              </option>
+            </select>
+          </li>
+        </ul>
+      </div>
 
-    <div>
-      <StandingsTableList v-if="selectedSeasonId" :season-id="selectedSeasonId" />
+      <div>
+        <StandingsTableList v-if="selectedSeasonId" :season-id="selectedSeasonId" />
+      </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+div.league-wrapper {
+  width: 95%;
+  margin: 0 auto;
+}
+</style>

@@ -1,30 +1,17 @@
 <script setup lang="ts">
 type Props = {
-  seasonStandingsDataItem: {
-    id: number;
-    name: string;
-    league_id: number;
-    season_id: number;
-    round_id: number;
-    round_name: number;
-    type: string;
-    stage_id: number;
-    stage_name: string;
-    resource: string;
-    standings: {
-      data: Array<StandingsData>
-    }
-  }
+  seasonStandings: SeasonStandings
 }
 const props = defineProps<Props>();
-
 </script>
 
 <template>
   <v-table density="compact">
     <thead>
       <tr>
-        <th>#</th>
+        <th class="position" style="text-align: center;">
+          #
+        </th>
         <th>Team</th>
         <th>Won</th>
         <th>Draw</th>
@@ -34,9 +21,11 @@ const props = defineProps<Props>();
       </tr>
     </thead>
     <tbody>
-      <tr v-for="standingsData in seasonStandingsDataItem.standings.data" :key="standingsData.team_id">
-        <td>
-          {{ standingsData.position }}
+      <tr v-for="standingsData in props.seasonStandings.standings.data" :key="standingsData.team_id">
+        <td class="position-wrapper">
+          <span class="position">
+            {{ standingsData.position }}
+          </span>
         </td>
         <td class="team">
           <img width="20" :src="standingsData.team.data.logo_path"><span>{{ standingsData.team_name }}</span>
@@ -51,7 +40,7 @@ const props = defineProps<Props>();
           {{ standingsData.overall.lost }}
         </td>
         <td>
-          {{ standingsData.recent_form }}
+          <RecentForm :recent-form="standingsData.recent_form" />
         </td>
         <td>
           {{ standingsData.points }}
@@ -62,8 +51,17 @@ const props = defineProps<Props>();
 </template>
 
 <style scoped>
+td.position-wrapper {
+  text-align: center;
+}
+
+span.position {
+  padding: 5px 8px;
+  border-radius: 30px;
+}
+
 td.team {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 10px;
 }
