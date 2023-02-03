@@ -14,8 +14,13 @@ watch(() => props.seasonId, async () => {
 <template>
   <div>
     <div v-for="seasonStandingsDataItem in seasonStandingsData" :key="seasonStandingsDataItem.id" class="standings">
-      <h1>{{ seasonStandingsDataItem.name }}</h1>
-      <StandingsTableListItem :season-standings-data-item="seasonStandingsDataItem" />
+      <v-card
+        outlined
+        class="standings-table-list-item"
+      >
+        <h3>{{ seasonStandingsDataItem.name }}</h3>
+        <StandingsTableListItem :season-standings-data-item="seasonStandingsDataItem" />
+      </v-card>
     </div>
   </div>
 </template>
@@ -23,5 +28,9 @@ watch(() => props.seasonId, async () => {
 <style scoped>
 div.standings {
   margin-bottom: 30px;
+}
+
+.standings-table-list-item {
+  padding: 20px;
 }
 </style>

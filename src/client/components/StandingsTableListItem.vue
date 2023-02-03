@@ -63,7 +63,7 @@ const props = defineProps<Props>();
 
 <style scoped>
 td.team {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 10px;
 }
