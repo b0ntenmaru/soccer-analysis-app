@@ -4,5 +4,7 @@ const { data: teams } = await useFetch(`/api/v1/teams/season/${seasonId}`);
 </script>
 
 <template>
-  {{ teams }}
+  <div>
+    {{ teams }}
+  </div>
 </template>

@@ -7,7 +7,7 @@ const state = reactive({
       path: '/leagues'
     }
   ]
-})
+});
 </script>
 
 <template>
@@ -22,14 +22,15 @@ const state = reactive({
             prepend-avatar="https://pbs.twimg.com/profile_images/1615002913545547783/_geo1fcO_400x400.jpg"
             title="d4te74"
             subtitle="d4te74@email.com"
-          ></v-list-item>
+          />
         </v-list>
 
-        <v-divider></v-divider>
+        <v-divider />
 
         <v-list density="compact" nav>
           <v-list-item
-            v-for="link in state.links"
+            v-for="(link, i) in state.links"
+            :key="i"
             :prepend-icon="link.icon"
             :title="link.title"
             :value="link.title"
