@@ -8,4 +8,8 @@ export default defineNuxtConfig({
       API_KEY: process.env.API_KEY,
     },
   },
+  css: ['vuetify/lib/styles/main.sass', 'mdi/css/materialdesignicons.min.css'],
+  build: {
+    transpile: ['vuetify'],
+  },
 })
