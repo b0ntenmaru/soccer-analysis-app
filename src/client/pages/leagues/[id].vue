@@ -13,23 +13,9 @@ const selectedSeasonId = ref<number | undefined>(latestSeason.value?.id);
 </script>
 
 <template>
-  <a-row type="flex" class="league-details">
-    <a-col :flex="3">
-      <SectionCard class="section-card-container">
-        <StandingsTable v-if="selectedSeasonId" :season-id="selectedSeasonId" />
-      </SectionCard>
-    </a-col>
-
-    <a-col :flex="4">
-      <SectionCard class="section-card-container">
-        2 / 5
-      </SectionCard>
-
-      <SectionCard class="section-card-container">
-        2 / 5
-      </SectionCard>
-    </a-col>
-  </a-row>
+  <div>
+    <StandingsTable v-if="selectedSeasonId" :season-id="selectedSeasonId" />
+  </div>
 </template>
 
 <style scoped>

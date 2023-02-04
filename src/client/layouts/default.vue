@@ -17,13 +17,13 @@ const selectedKeys = ref<string[]>(['2']);
         <a-menu-item key="3">nav 3</a-menu-item>
       </a-menu>
     </a-layout-header>
-    <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
+    <a-layout-content class="layout-content">
       <a-breadcrumb :style="{ margin: '16px 0' }">
         <a-breadcrumb-item>Home</a-breadcrumb-item>
         <a-breadcrumb-item>List</a-breadcrumb-item>
         <a-breadcrumb-item>App</a-breadcrumb-item>
       </a-breadcrumb>
-      <div :style="{ padding: '60px', minHeight: '380px', 'max-width': '1400px', margin: '0 auto' }">
+      <div class="content" :style="{  }">
         <slot />
       </div>
     </a-layout-content>
@@ -47,5 +47,26 @@ const selectedKeys = ref<string[]>(['2']);
 
 [data-theme='dark'] .site-layout .site-layout-background {
   background: #141414;
+}
+
+.layout-content {
+  padding: 0 50px;
+  margin-top: 64px;
+}
+div.content {
+  padding: 60px;
+  min-height: 380px;
+  max-width: 1300px;
+  margin: 0 auto
+}
+
+@media screen and (max-width:768px) {
+  .layout-content {
+    padding: 0;
+  }
+
+  div.content {
+    padding: 0;
+  }
 }
 </style>
