@@ -13,10 +13,27 @@ const selectedSeasonId = ref<number | undefined>(latestSeason.value?.id);
 </script>
 
 <template>
-  <div v-if="league">
-    {{ league }}
-  </div>
+  <a-row type="flex" :style="{ gap: '14px;' }">
+    <a-col :flex="3">
+      <SectionCard class="section-card-container">
+        2 / 5
+      </SectionCard>
+    </a-col>
+
+    <a-col :flex="2">
+      <SectionCard class="section-card-container">
+        2 / 5
+      </SectionCard>
+
+      <SectionCard class="section-card-container">
+        2 / 5
+      </SectionCard>
+    </a-col>
+  </a-row>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
+.section-card-container {
+  margin-bottom: 14px;
+}
 </style>
