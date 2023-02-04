@@ -16,7 +16,7 @@ const selectedSeasonId = ref<number | undefined>(latestSeason.value?.id);
   <a-row type="flex" :style="{ gap: '14px;' }">
     <a-col :flex="3">
       <SectionCard class="section-card-container">
-        2 / 5
+        <StandingsTable v-if="selectedSeasonId" :season-id="selectedSeasonId" />
       </SectionCard>
     </a-col>
 
