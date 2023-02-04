@@ -16,6 +16,8 @@ const state = reactive({
       <v-navigation-drawer
         color="rgb(31 41 55 / 1)"
         theme="dark"
+        style="position: fixed"
+        permanent
       >
         <v-list>
           <v-list-item

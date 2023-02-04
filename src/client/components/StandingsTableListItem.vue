@@ -6,7 +6,7 @@ const props = defineProps<Props>();
 </script>
 
 <template>
-  <v-table density="compact">
+  <v-table density="compact" hover>
     <thead>
       <tr>
         <th class="position" style="text-align: center;">
