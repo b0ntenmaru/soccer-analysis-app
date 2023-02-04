@@ -37,6 +37,11 @@ const columns = [
     key: 'Lost'
   },
   {
+    title: 'Goal',
+    dataIndex: 'Goal',
+    key: 'Goal'
+  },
+  {
     title: 'Last 5',
     dataIndex: 'Last 5',
     key: 'Last 5'
@@ -82,6 +87,10 @@ const columns = [
 
           <template v-if="column.key === 'Lost'">
             {{ record.overall.lost }}
+          </template>
+
+          <template v-if="column.key === 'Goal'">
+            {{ record.overall.goals_scored }}
           </template>
 
           <template v-if="column.key === 'Last 5'">
