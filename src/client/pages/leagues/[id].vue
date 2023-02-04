@@ -20,7 +20,7 @@ const selectedSeasonId = ref<number | undefined>(latestSeason.value?.id);
       </SectionCard>
     </a-col>
 
-    <a-col :flex="2">
+    <a-col :flex="4">
       <SectionCard class="section-card-container">
         2 / 5
       </SectionCard>
@@ -34,7 +34,7 @@ const selectedSeasonId = ref<number | undefined>(latestSeason.value?.id);
 
 <style scoped>
 .league-details {
-  gap: 14px;
+  gap: 40px;
 }
 .section-card-container {
   margin-bottom: 14px;

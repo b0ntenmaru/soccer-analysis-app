@@ -23,7 +23,7 @@ const selectedKeys = ref<string[]>(['2']);
         <a-breadcrumb-item>List</a-breadcrumb-item>
         <a-breadcrumb-item>App</a-breadcrumb-item>
       </a-breadcrumb>
-      <div :style="{ padding: '24px', minHeight: '380px' }">
+      <div :style="{ padding: '60px', minHeight: '380px' }">
         <slot />
       </div>
     </a-layout-content>
