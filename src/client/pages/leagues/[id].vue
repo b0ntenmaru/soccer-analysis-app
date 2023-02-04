@@ -13,7 +13,7 @@ const selectedSeasonId = ref<number | undefined>(latestSeason.value?.id);
 </script>
 
 <template>
-  <a-row type="flex" :style="{ gap: '14px;' }">
+  <a-row type="flex" class="league-details">
     <a-col :flex="3">
       <SectionCard class="section-card-container">
         <StandingsTable v-if="selectedSeasonId" :season-id="selectedSeasonId" />
@@ -33,6 +33,9 @@ const selectedSeasonId = ref<number | undefined>(latestSeason.value?.id);
 </template>
 
 <style scoped>
+.league-details {
+  gap: 14px;
+}
 .section-card-container {
   margin-bottom: 14px;
 }
