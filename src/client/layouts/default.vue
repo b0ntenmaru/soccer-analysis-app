@@ -1,63 +1,51 @@
 <script setup lang="ts">
-const state = reactive({
-  links: [
-    {
-      icon: 'mdi-folder',
-      title: 'リーグ一覧',
-      path: '/leagues'
-    }
-  ]
-});
+const selectedKeys = ref<string[]>(['2']);
 </script>
 
 <template>
-  <v-app>
-    <v-layout>
-      <v-navigation-drawer
-        color="rgb(31 41 55 / 1)"
+  <a-layout>
+    <a-layout-header :style="{ position: 'fixed', zIndex: 1, width: '100%' }">
+      <div class="logo" />
+      <a-menu
+        v-model:selectedKeys="selectedKeys"
         theme="dark"
-        style="position: fixed"
+        mode="horizontal"
+        :style="{ lineHeight: '64px' }"
       >
-        <v-list>
-          <v-list-item
-            prepend-avatar="https://pbs.twimg.com/profile_images/1615002913545547783/_geo1fcO_400x400.jpg"
-            title="d4te74"
-            subtitle="d4te74@email.com"
-          />
-        </v-list>
-
-        <v-divider />
-
-        <v-list density="compact" nav>
-          <v-list-item
-            v-for="(link, i) in state.links"
-            :key="i"
-            :prepend-icon="link.icon"
-            :title="link.title"
-            :value="link.title"
-            :to="link.path"
-          />
-        </v-list>
-      </v-navigation-drawer>
-
-      <v-main class="main-content">
-        <div class="main-content-container">
-          <slot />
-        </div>
-      </v-main>
-    </v-layout>
-  </v-app>
+        <a-menu-item key="1">nav 1</a-menu-item>
+        <a-menu-item key="2">nav 2</a-menu-item>
+        <a-menu-item key="3">nav 3</a-menu-item>
+      </a-menu>
+    </a-layout-header>
+    <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
+      <a-breadcrumb :style="{ margin: '16px 0' }">
+        <a-breadcrumb-item>Home</a-breadcrumb-item>
+        <a-breadcrumb-item>List</a-breadcrumb-item>
+        <a-breadcrumb-item>App</a-breadcrumb-item>
+      </a-breadcrumb>
+      <div :style="{ padding: '24px', minHeight: '380px' }">
+        <slot />
+      </div>
+    </a-layout-content>
+    <a-layout-footer :style="{ textAlign: 'center' }">
+      Ant Design ©2018 Created by Ant UED
+    </a-layout-footer>
+  </a-layout>
 </template>
 
-<style scoped>
-.main-content {
-  background: #f1f3f8;
+<style>
+#components-layout-demo-fixed .logo {
+  width: 120px;
+  height: 31px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px 24px 16px 0;
+  float: left;
+}
+.site-layout .site-layout-background {
+  background: #fff;
 }
 
-div.main-content-container {
-  width: 95%;
-  margin: 0 auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
+[data-theme='dark'] .site-layout .site-layout-background {
+  background: #141414;
 }
 </style>
