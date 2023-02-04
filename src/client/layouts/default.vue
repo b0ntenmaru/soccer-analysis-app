@@ -17,7 +17,6 @@ const state = reactive({
         color="rgb(31 41 55 / 1)"
         theme="dark"
         style="position: fixed"
-        permanent
       >
         <v-list>
           <v-list-item
@@ -41,9 +40,24 @@ const state = reactive({
         </v-list>
       </v-navigation-drawer>
 
-      <v-main style="background: #f1f3f8">
-        <slot />
+      <v-main class="main-content">
+        <div class="main-content-container">
+          <slot />
+        </div>
       </v-main>
     </v-layout>
   </v-app>
 </template>
+
+<style scoped>
+.main-content {
+  background: #f1f3f8;
+}
+
+div.main-content-container {
+  width: 95%;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+</style>

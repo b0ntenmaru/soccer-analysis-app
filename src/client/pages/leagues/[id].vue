@@ -34,11 +34,9 @@ const selectedSeasonId = ref<number | undefined>(latestSeason.value?.id);
 
 <style lang="scss" scoped>
 div.league-wrapper {
-  width: 95%;
-  margin: 0 auto;
 
   .league-profile {
-    margin: 10px 0;
+    margin-bottom: 10px;
     display: flex;
     background-repeat: no-repeat;
     background-size: cover;
