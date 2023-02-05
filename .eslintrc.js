@@ -21,6 +21,7 @@ module.exports = {
   ],
   rules: {
     '@typescript-eslint/no-unused-vars': 'off',
+    'no-use-before-define': 'off',
     semi: ['error', 'always']
   }
 };
