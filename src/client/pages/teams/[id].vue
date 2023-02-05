@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { TwitterOutlined } from '@ant-design/icons-vue';
-
 const id = useRoute().params.id;
 const { data: team } = await useFetch(`/api/v1/teams/${id}`);
 </script>
@@ -19,7 +17,7 @@ const { data: team } = await useFetch(`/api/v1/teams/${id}`);
     </SectionCard>
 
     <SectionCard class="section-card">
-      ああああ
+      <SquadList :squad-data="team.squad.data" />
     </SectionCard>
   </div>
 </template>
