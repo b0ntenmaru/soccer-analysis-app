@@ -54,9 +54,9 @@ const selectedKeys = ref<string[]>(['2']);
   margin-top: 64px;
 }
 div.content {
-  padding: 60px;
+  padding: 30px 60px;
   min-height: 380px;
-  max-width: 1300px;
+  max-width: 1100px;
   margin: 0 auto
 }
 
