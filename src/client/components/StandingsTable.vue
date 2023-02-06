@@ -74,8 +74,10 @@ const columns = [
             </template>
 
             <template v-if="column.key === 'Team'">
-              <a-avatar :src="record.team.data.logo_path" />
-              {{ record.team_name }}
+              <NuxtLink :to="`/teams/${record.team_id}`">
+                <a-avatar :src="record.team.data.logo_path" />
+                {{ record.team_name }}
+              </NuxtLink>
             </template>
 
             <template v-if="column.key === 'Won'">

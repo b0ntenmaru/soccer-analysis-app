@@ -21,6 +21,8 @@ module.exports = {
   ],
   rules: {
     '@typescript-eslint/no-unused-vars': 'off',
+    'no-use-before-define': 'off',
+    'vue/no-multiple-template-root': 'off',
     semi: ['error', 'always']
   }
 };
