@@ -17,6 +17,10 @@ const { data: team } = await useFetch(`/api/v1/teams/${id}`);
     </SectionCard>
 
     <SectionCard class="section-card">
+      <StandingsTable :season-id="team.current_season_id" />
+    </SectionCard>
+
+    <SectionCard class="section-card">
       <SquadList :squad-data="team.squad.data" />
     </SectionCard>
   </div>
