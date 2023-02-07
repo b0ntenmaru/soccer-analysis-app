@@ -6,8 +6,7 @@ type Props = {
   name: string;
   countryImagePath: string;
   fifaName: string;
-  founded: number;
-  twitter: string;
+  twitter: string | null;
 }
 const props = defineProps<Props>();
 
@@ -17,27 +16,16 @@ const props = defineProps<Props>();
   <div class="team-profile">
     <div>
       <img
-        :width="150"
+        :width="100"
         :src="props.logoPath"
       >
     </div>
-    <div class="team-description">
+    <div class="team-name">
       <div>
-        <h1>{{ props.name }}</h1>
-      </div>
-
-      <div class="team-profile-sub-item">
-        <div>
-          <a-avatar :src="props.countryImagePath" />
-        </div>
-
-        <div>
-          {{ props.founded }}年設立
-        </div>
-
-        <div v-if="props.twitter" class="twitter-icon">
-          <a :href="`https://twitter.com/${props.twitter}`" target="_blank" rel="noopener"><TwitterOutlined /></a>
-        </div>
+        <h1>
+          {{ props.name }}
+          <a v-if="props.twitter" :href="`https://twitter.com/${props.twitter}`" target="_blank" rel="noopener"><TwitterOutlined /></a>
+        </h1>
       </div>
     </div>
   </div>
@@ -45,11 +33,9 @@ const props = defineProps<Props>();
 
 <style scoped lang="scss">
 div.team-profile {
-  // display: flex;
-  // gap: 40px;
   text-align: center;
 
-  div.team-description {
+  div.team-name {
     color: inherit;
     display: flex;
     flex-direction: column;
@@ -57,7 +43,7 @@ div.team-profile {
     gap: 8px;
 
     h1 {
-      font-size: 36px;
+      font-size: 26px;
       margin: 0;
     }
 
@@ -66,19 +52,6 @@ div.team-profile {
       align-items: baseline;
       gap: 8px;
       justify-content: center;
-    }
-
-    div.twitter-icon {
-      position: relative;
-      top: 4px;
-
-      a {
-        display: inline-flex;
-        font-size: 18px;
-        align-items: center;
-        gap: 2px;
-        font-weight: bold;
-      }
     }
   }
 }
