@@ -1,6 +1,6 @@
-const config = useRuntimeConfig();
-const apiPath = config.public.API_PATH;
-const apiKey = config.public.API_KEY;
+import { useSportmonksApi } from '@@/src/server/utils/useSportmonksApi';
+
+const { apiPath, apiKey } = useSportmonksApi();
 
 export const getPlayerById = async (args: { playerId: number; include?: Array<string> }): Promise<GetPlayerByIdData> => {
   const { playerId } = args;

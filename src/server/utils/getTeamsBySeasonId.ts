@@ -1,6 +1,6 @@
-const config = useRuntimeConfig();
-const apiPath = config.public.API_PATH;
-const apiKey = config.public.API_KEY;
+import { useSportmonksApi } from '@@/src/server/utils/useSportmonksApi';
+
+const { apiPath, apiKey } = useSportmonksApi();
 
 export const getTeamsbySeasonId = async (args: { seasonId: number }): Promise<Array<Team>> => {
   const response: any = await $fetch(`${apiPath}/teams/season/${args.seasonId}?api_token=${apiKey}`);
