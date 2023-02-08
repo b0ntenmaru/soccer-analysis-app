@@ -8,9 +8,7 @@ definePageMeta({
 <template>
   <a-row type="flex" :gutter="{ md: 20 }">
     <a-col :span="24" :md="6">
-      <a-card title="トップリーグ" size="small">
-        <TopLeagues />
-      </a-card>
+      <TopLeagues />
     </a-col>
 
     <a-col :span="24" :md="10">

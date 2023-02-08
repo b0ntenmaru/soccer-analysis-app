@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { data: leagues } = await useFetch('/api/v1/leagues', { lazy: true });
+const { data: leagues, pending } = await useFetch('/api/v1/leagues', { lazy: true });
 
 const topLeagueIds = [2, 5, 8, 24, 72, 82, 301, 384, 390, 564, 570];
 
@@ -14,23 +14,29 @@ const topLeagues = computed(() => {
   });
   return results;
 });
+
+const isLoading = computed(() => {
+  return leagues.value === null && pending;
+});
 </script>
 
 <template>
-  <ul class="league-list">
-    <li v-for="league in topLeagues" :key="league.id">
-      <NuxtLink :to="`/leagues/${league.id}`">
-        <div class="league-list-item">
-          <div>
-            <img :src="league.logo_path">
+  <a-card title="トップリーグ" size="small" :loading="isLoading">
+    <ul class="league-list">
+      <li v-for="league in topLeagues" :key="league.id">
+        <NuxtLink :to="`/leagues/${league.id}`">
+          <div class="league-list-item">
+            <div>
+              <img :src="league.logo_path">
+            </div>
+            <div>
+              {{ league.name }}
+            </div>
           </div>
-          <div>
-            {{ league.name }}
-          </div>
-        </div>
-      </NuxtLink>
-    </li>
-  </ul>
+        </NuxtLink>
+      </li>
+    </ul>
+  </a-card>
 </template>
 
 <style scoped lang="scss">
