@@ -59,5 +59,9 @@ ul.league-list {
       }
     }
   }
+
+  li:hover {
+    background: #f0f2f5;;
+  }
 }
 </style>
