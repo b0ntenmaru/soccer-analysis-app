@@ -1,4 +1,4 @@
-type GetFixturesOfTopLeaguesByRangeData = Array<Fixture>;
+type GetFixturesByDate = Array<Fixture>;
 
 type Fixture = {
   id: number;
