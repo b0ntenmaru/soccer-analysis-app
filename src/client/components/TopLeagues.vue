@@ -16,7 +16,7 @@ const topLeagues = computed(() => {
 });
 
 const isLoading = computed(() => {
-  return leagues.value === null && pending;
+  return leagues.value === null && pending.value;
 });
 </script>
 
