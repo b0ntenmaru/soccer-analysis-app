@@ -1,13 +1,4 @@
-type Season = {
-  id: number;
-  name: string;
-  league_id: number;
-  is_current_season: boolean;
-  current_round_id: number | null;
-  current_stage_id: number | null;
-}
-
-type League = {
+export type League = {
   id: number;
   active: boolean;
   type: 'domestic' | 'cup_international',
@@ -32,17 +23,11 @@ type League = {
   }
 }
 
-type Team = {
+type Season = {
   id: number;
-  legacy_id: number;
   name: string;
-  short_code: string;
-  twitter: string | null;
-  country_id: number;
-  national_team: boolean;
-  founded: number;
-  logo_path: string;
-  venue_id: number;
-  current_season_id: number;
-  is_placeholder: boolean;
+  league_id: number;
+  is_current_season: boolean;
+  current_round_id: number | null;
+  current_stage_id: number | null;
 }
