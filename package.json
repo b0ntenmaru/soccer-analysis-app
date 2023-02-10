@@ -8,7 +8,8 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint --ext .ts,.js,.vue .",
     "lint:fix": "eslint --ext .ts,.js,.vue . --fix",
-    "typecheck": "npx nuxi typecheck ."
+    "typecheck": "npx nuxi typecheck .",
+    "test": "vitest"
   },
   "devDependencies": {
     "@ant-design/icons-vue": "^6.1.0",
@@ -18,8 +19,10 @@
     "ant-design-vue": "^3.2.15",
     "eslint": "^8.33.0",
     "eslint-plugin-vue": "^9.9.0",
+    "jsdom": "^21.1.0",
     "nuxt": "^3.0.0",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "vitest": "^0.28.4"
   },
   "msw": {
     "workerDirectory": "public"
