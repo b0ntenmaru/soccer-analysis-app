@@ -1,6 +1,5 @@
-type GetFixturesByDate = Array<Fixture>;
 
-type Fixture = {
+export type Fixture = {
   id: number;
   league_id: number;
   season_id: number;

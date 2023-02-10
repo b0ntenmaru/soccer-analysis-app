@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import type { GetFixturesByData } from '@@/src/server/utils/responseTypes/GetFixturesByData';
+
 type Props = {
-  fixtures: GetFixturesByDate
+  fixtures: GetFixturesByData
 }
 const props = defineProps<Props>();
 
