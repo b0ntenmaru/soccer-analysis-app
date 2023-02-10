@@ -44,8 +44,40 @@ watch(selectedDate, async () => {
     </a-col>
 
     <a-col :span="24" :md="8">
-      <a-card>
-        いいいいいい
+      <a-card class="video-content">
+        <iframe
+          width="310"
+          height="180"
+          src="https://www.youtube.com/embed/videoseries?list=PLQ_voP4Q3cfeT5QqIr7RA7BEc2zGMn0nl"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        />
+      </a-card>
+
+      <a-card class="video-content">
+        <iframe
+          width="310"
+          height="180"
+          src="https://www.youtube.com/embed/videoseries?list=PLEfXwIkfHxL-72tN494qs53P40hnBrDRW"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        />
+      </a-card>
+
+      <a-card class="video-content">
+        <iframe
+          width="310"
+          height="180"
+          src="https://www.youtube.com/embed/videoseries?list=PLEfXwIkfHxL-3BuYA9Gh8EnkZvVuBQd2m"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        />
       </a-card>
     </a-col>
   </a-row>
@@ -54,5 +86,9 @@ watch(selectedDate, async () => {
 <style scoped lang="scss">
 .match-calendar {
   margin-bottom: 12px;
+}
+
+.video-content {
+  margin-bottom: 14px;
 }
 </style>
