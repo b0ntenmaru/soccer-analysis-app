@@ -24,6 +24,15 @@ describe('convertToLeagueFixtures', () => {
               scores: {
                 localteam_score: 1,
                 visitorteam_score: 1
+              },
+              time: {
+                status: 'FT',
+                starting_at: {
+                  date_time: '2022-02-09 19:45:00',
+                  date: '2022-02-09',
+                  time: '19:45:00',
+                  timezone: 'UTC'
+                }
               }
             }
           ]
@@ -44,6 +53,15 @@ describe('convertToLeagueFixtures', () => {
               scores: {
                 localteam_score: 3,
                 visitorteam_score: 1
+              },
+              time: {
+                status: 'FT',
+                starting_at: {
+                  date_time: '2022-02-05 13:00:00',
+                  date: '2022-02-05',
+                  time: '13:00:00',
+                  timezone: 'UTC'
+                }
               }
             }
           ]

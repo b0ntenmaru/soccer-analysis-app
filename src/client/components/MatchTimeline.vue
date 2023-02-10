@@ -1,87 +1,103 @@
 <script setup lang="ts">
-import type { GetFixturesByData } from '~~/src/types/response_types/GetFixturesByData';
+import type { LeagueFixtures } from 'src/types/entity/LeagueFixtures';
 
 type Props = {
-  fixtures: GetFixturesByData
+  leagueFixtures: LeagueFixtures
 }
 const props = defineProps<Props>();
 
 </script>
 
 <template>
-  <a-card title="マッチタイムライン" bordered>
-    <div v-for="fixture in props.fixtures" :key="fixture.id" class="fixture">
-      <a-row type="flex" :gutter="{ md: 0 }">
-        <a-col :md="11" class="local-team">
-          <div class="local-team-name">
-            <img :src="fixture.localTeam.data.logo_path">
-            <span>{{ fixture.localTeam.data.name }}</span>
-          </div>
-          <div>
-            {{ fixture.scores.localteam_score }}
-          </div>
-        </a-col>
+  <div v-for="leagueFixture in props.leagueFixtures" :key="leagueFixture.league_id" class="match-timeline">
+    <a-card size="small">
+      <h3 :style="{ margin: 0}">
+        <img :src="leagueFixture.league_logo_path" :style="{width: '40px' }">
+        {{ leagueFixture.league_name }}
+      </h3>
+    </a-card>
 
-        <a-col :md="2" class="local-team">
-          -
-        </a-col>
+    <a-card v-for="fixture, index in leagueFixture.fixtures" :key="index" size="small">
+      <div class="league-fixture">
+        <div class="fixture-detail">
+          <div class="team">
+            <div class="team-name">
+              <img :src="fixture.local_team.logo_path" class="team-logo">
+              <span>{{ fixture.local_team.name }}</span>
+            </div>
 
-        <a-col :md="11" class="visitor-team">
-          <div>
-            {{ fixture.scores.visitorteam_score }}
+            <div>
+              {{ fixture.scores.localteam_score }}
+            </div>
           </div>
 
-          <div class="visitor-team-name">
-            <img :src="fixture.visitorTeam.data.logo_path">
-            <span>{{ fixture.visitorTeam.data.name }}</span>
+          <div class="team">
+            <div class="team-name">
+              <img :src="fixture.visitor_team.logo_path" class="team-logo">
+              <span>{{ fixture.visitor_team.name }}</span>
+            </div>
+
+            <div>
+              {{ fixture.scores.visitorteam_score }}
+            </div>
           </div>
-        </a-col>
-      </a-row>
-    </div>
-  </a-card>
+        </div>
+
+        <div class="fixture-date">
+          <span>{{ fixture.time.starting_at.time }}</span>
+          <span>{{ fixture.time.status }}</span>
+        </div>
+      </div>
+    </a-card>
+  </div>
 </template>
 
 <style scoped lang="scss">
-.fixture {
-  padding: 16px 6px;
-  border-bottom: 1px solid #f0f0f0;
+div.match-timeline {
+  margin-bottom: 14px;
 
-  .local-team {
+  h3 {
     display: flex;
     align-items: center;
-    justify-content: center;
-
-    .local-team-name {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 136px;
-
-      img {
-        width: 30px;
-      }
-    }
-  }
-
-  .visitor-team {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .visitor-team-name {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 136px;
-
-      img {
-        width: 30px;
-      }
-    }
+    gap: 8px;
   }
 }
 
-.fixture:hover {
+.league-fixture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .fixture-detail {
+    width: 234px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: center;
+
+    .team {
+      display: flex;
+
+      .team-name {
+        display: flex;
+        gap: 6px;
+        width: 180px;
+      }
+    }
+  }
+
+  img.team-logo {
+    width: 20px;
+  }
+
+  .fixture-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.league-fixture:hover {
   background: #f0f2f5;;
 }
 </style>

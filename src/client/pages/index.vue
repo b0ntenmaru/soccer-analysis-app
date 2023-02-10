@@ -12,11 +12,11 @@ const selectDate = (value: Dayjs) => {
 };
 
 selectedDate.value = dayjs().format('YYYY-MM-DD');
-const { data: fixtures } = await useFetch(`/api/v1/fixtures/date/${selectedDate.value}`, { lazy: true });
+const { data: leagueFixtures } = await useFetch(`/api/v1/fixtures/date/${selectedDate.value}`, { lazy: true });
 
 watch(selectedDate, async () => {
   const { data } = await useFetch(`/api/v1/fixtures/date/${selectedDate.value}`, { lazy: true });
-  fixtures.value = data.value;
+  leagueFixtures.value = data.value;
 });
 </script>
 
@@ -33,7 +33,14 @@ watch(selectedDate, async () => {
     </a-col>
 
     <a-col :span="24" :md="9">
-      <MatchTimeline v-if="fixtures" :fixtures="fixtures" />
+      <template v-if="leagueFixtures">
+        <MatchTimeline :league-fixtures="leagueFixtures" />
+      </template>
+      <temlate>
+        <a-card v-for="item, index in [1, 2, 3, 4, 5, 6]" :key="index" size="small" loading>
+          {{ item }}
+        </a-card>
+      </temlate>
     </a-col>
 
     <a-col :span="24" :md="8">

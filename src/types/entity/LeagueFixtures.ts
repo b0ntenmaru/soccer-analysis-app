@@ -12,11 +12,21 @@ type Fixture = {
     localteam_score: number;
     visitorteam_score: number;
   };
+  time: {
+    status: string;
+    starting_at: {
+      date_time: string;
+      date: string;
+      time: string;
+      timezone: string;
+    };
+  };
 }
 
 export type LeagueFixture = {
   league_id: number;
   league_name: string;
+  league_logo_path: string;
   fixtures: Array<Fixture>;
 }
 

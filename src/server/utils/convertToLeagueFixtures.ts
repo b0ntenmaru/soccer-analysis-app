@@ -35,6 +35,15 @@ const generateFixtureForFrontend = (fixture: Fixture) => {
     scores: {
       localteam_score: fixture.scores.localteam_score,
       visitorteam_score: fixture.scores.visitorteam_score
+    },
+    time: {
+      status: fixture.time.status,
+      starting_at: {
+        date_time: fixture.time.starting_at.date_time,
+        date: fixture.time.starting_at.date,
+        time: fixture.time.starting_at.time,
+        timezone: fixture.time.starting_at.timezone
+      }
     }
   };
 };
@@ -43,6 +52,7 @@ const generateLeagueFixture = (fixture: Fixture) => {
   return {
     league_id: fixture.league.data.id,
     league_name: fixture.league.data.name,
+    league_logo_path: fixture.league.data.logo_path,
     fixtures: [
       {
         local_team: {
@@ -56,6 +66,15 @@ const generateLeagueFixture = (fixture: Fixture) => {
         scores: {
           localteam_score: fixture.scores.localteam_score,
           visitorteam_score: fixture.scores.visitorteam_score
+        },
+        time: {
+          status: fixture.time.status,
+          starting_at: {
+            date_time: fixture.time.starting_at.date_time,
+            date: fixture.time.starting_at.date,
+            time: fixture.time.starting_at.time,
+            timezone: fixture.time.starting_at.timezone
+          }
         }
       }
     ]
