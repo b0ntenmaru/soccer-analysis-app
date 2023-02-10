@@ -11,7 +11,7 @@ export type Fixture = {
   referee_id: number;
   localteam_id: number;
   visitorteam_id: number;
-  winner_team_id: number;
+  winner_team_id: number | null;
   weather_report: {
     code: string;
     type: string;
@@ -39,7 +39,7 @@ export type Fixture = {
   };
   commentaries: boolean;
   attendance: null;
-  pitch: string;
+  pitch: string | null;
   details: string | null;
   neutral_venue: boolean;
   winning_odds_calculated: boolean;
@@ -68,7 +68,7 @@ export type Fixture = {
     };
     minute: number;
     second: number | null;
-    added_time: number;
+    added_time: number | null;
     extra_minute: number | null;
     injury_time:number | null;
   };
@@ -96,8 +96,8 @@ export type Fixture = {
       kit_colors: string;
     }
   };
-  deleted: number;
-  is_placeholder: number;
+  deleted: boolean;
+  is_placeholder: boolean;
   localTeam: {
     data: {
       id: number;
