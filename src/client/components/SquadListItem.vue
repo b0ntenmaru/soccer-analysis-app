@@ -21,7 +21,7 @@ const displayCountryText = (countryName: string) => {
       {{ player.display_name }}
     </div>
 
-    <div class="position-name">
+    <div v-if="player.position" class="position-name">
       {{ player.position.data.name }}
     </div>
 
