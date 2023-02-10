@@ -9,15 +9,13 @@ const props = defineProps<Props>();
 </script>
 
 <template>
-  <div v-for="leagueFixture in props.leagueFixtures" :key="leagueFixture.league_id" class="match-timeline">
-    <a-card size="small">
-      <h3 :style="{ margin: 0}">
-        <img :src="leagueFixture.league_logo_path" :style="{width: '40px' }">
-        {{ leagueFixture.league_name }}
-      </h3>
-    </a-card>
+  <v-list v-for="leagueFixture in props.leagueFixtures" :key="leagueFixture.league_id" rounded="lg" class="match-timeline">
+    <h3 :style="{ margin: 0}">
+      <img :src="leagueFixture.league_logo_path" :style="{width: '40px' }">
+      {{ leagueFixture.league_name }}
+    </h3>
 
-    <a-card v-for="fixture, index in leagueFixture.fixtures" :key="index" size="small">
+    <v-list-item v-for="fixture, index in leagueFixture.fixtures" :key="index" size="small" link>
       <div class="league-fixture">
         <div class="fixture-detail">
           <div class="team">
@@ -48,8 +46,8 @@ const props = defineProps<Props>();
           <span>{{ fixture.time.status }}</span>
         </div>
       </div>
-    </a-card>
-  </div>
+    </v-list-item>
+  </v-list>
 </template>
 
 <style scoped lang="scss">
@@ -95,9 +93,5 @@ div.match-timeline {
     flex-direction: column;
     align-items: center;
   }
-}
-
-.league-fixture:hover {
-  background: #f0f2f5;;
 }
 </style>

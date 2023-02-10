@@ -14,54 +14,32 @@ const topLeagues = computed(() => {
   });
   return results;
 });
-
-const isLoading = computed(() => {
-  return leagues.value === null && pending.value;
-});
 </script>
 
 <template>
-  <a-card title="トップリーグ" size="small" :loading="isLoading">
-    <ul class="league-list">
-      <li v-for="league in topLeagues" :key="league.id">
-        <NuxtLink :to="`/leagues/${league.id}`">
-          <div class="league-list-item">
-            <div>
-              <img :src="league.logo_path">
-            </div>
-            <div>
-              {{ league.name }}
-            </div>
-          </div>
-        </NuxtLink>
-      </li>
-    </ul>
-  </a-card>
+  <v-list rounded="md">
+    <v-list-item v-for="league in topLeagues" :key="league.id" link :to="`leagues/${league.id}`">
+      <div class="league-list-item">
+        <div>
+          <img :src="league.logo_path">
+        </div>
+        <div>
+          {{ league.name }}
+        </div>
+      </div>
+    </v-list-item>
+  </v-list>
 </template>
 
 <style scoped lang="scss">
-ul.league-list {
-  padding: 0;
-  margin: 0;
+.league-list-item {
+  display: flex;
+  padding: 8px;
+  gap: 24px;
+  align-items: center;
 
-  li {
-    width: 100%;
-    list-style: none;
-
-    .league-list-item {
-      display: flex;
-      padding: 8px;
-      gap: 24px;
-      align-items: center;
-
-      img {
-        width: 26px;
-      }
-    }
-  }
-
-  li:hover {
-    background: #f0f2f5;;
+  img {
+    width: 26px;
   }
 }
 </style>
