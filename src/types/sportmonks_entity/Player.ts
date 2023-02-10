@@ -1,3 +1,5 @@
+import type { Country } from '@@/src/types/sportmonks_entity/Country';
+
 export type Player = {
   player_id: number;
   team_id: number;
@@ -16,7 +18,7 @@ export type Player = {
   weight: string;
   image_path: string;
   country: {
-    data: CountryData;
+    data: Country;
   },
   position?: Position;
 }
