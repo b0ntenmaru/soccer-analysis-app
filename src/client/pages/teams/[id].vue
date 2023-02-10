@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { TwitterOutlined } from '@ant-design/icons-vue';
-
 const id = useRoute().params.id;
 const { data: team } = await useFetch(`/api/v1/teams/${id}`);
 </script>
@@ -11,6 +9,7 @@ const { data: team } = await useFetch(`/api/v1/teams/${id}`);
       <a-col :span="24" :md="8">
         <SectionCard class="section-card">
           <TeamProfile
+            v-if="team.country"
             :logo-path="team.logo_path"
             :name="team.name"
             :country-image-path="team.country.data.image_path"

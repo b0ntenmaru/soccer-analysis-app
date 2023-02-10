@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import type { Squad } from '@@/src/types/sportmonks_entity/Squad';
+
 type Props = {
-  squadData: SquadData;
+  squadData: Array<Squad>;
 }
 const props = defineProps<Props>();
 </script>
