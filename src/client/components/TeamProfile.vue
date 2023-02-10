@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { TwitterOutlined } from '@ant-design/icons-vue';
-
 type Props = {
   logoPath: string;
   name: string;
