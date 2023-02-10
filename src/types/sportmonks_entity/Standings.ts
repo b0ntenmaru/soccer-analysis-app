@@ -1,19 +1,20 @@
-type StandingsTeamData = {
+export type SeasonStandings = {
   id: number;
-  legacy_id: number;
   name: string;
-  short_code: string;
-  twitter: string;
-  country_id: number;
-  national_team: boolean;
-  founded: number;
-  logo_path: string;
-  venue_id: number;
-  current_season_id: number;
-  is_placeholder: boolean;
-}
+  league_id: number;
+  season_id: number;
+  round_id: number;
+  round_name: number;
+  type: string;
+  stage_id: number;
+  stage_name: string;
+  resource: string;
+  standings: {
+    data: Array<Standings>
+  }
+};
 
-type StandingsData = {
+type Standings = {
   position: number;
   team_id: number;
   team_name: string;
@@ -61,20 +62,17 @@ type StandingsData = {
   }
 }
 
-type SeasonStandings = {
+type StandingsTeamData = {
   id: number;
+  legacy_id: number;
   name: string;
-  league_id: number;
-  season_id: number;
-  round_id: number;
-  round_name: number;
-  type: string;
-  stage_id: number;
-  stage_name: string;
-  resource: string;
-  standings: {
-    data: Array<StandingsData>
-  }
-};
-
-type SeasonStandingsData = Array<SeasonStandings>;
+  short_code: string;
+  twitter: string;
+  country_id: number;
+  national_team: boolean;
+  founded: number;
+  logo_path: string;
+  venue_id: number;
+  current_season_id: number;
+  is_placeholder: boolean;
+}
