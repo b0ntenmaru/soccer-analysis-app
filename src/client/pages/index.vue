@@ -12,11 +12,11 @@ const selectDate = (value: Dayjs) => {
 };
 
 selectedDate.value = dayjs().format('YYYY-MM-DD');
-const { data: fixtures } = await useFetch(`/api/v1/fixtures/date/${selectedDate.value}`, { lazy: true });
+const { data: leagueFixtures } = await useFetch(`/api/v1/fixtures/date/${selectedDate.value}`, { lazy: true });
 
 watch(selectedDate, async () => {
   const { data } = await useFetch(`/api/v1/fixtures/date/${selectedDate.value}`, { lazy: true });
-  fixtures.value = data.value;
+  leagueFixtures.value = data.value;
 });
 </script>
 
@@ -33,12 +33,51 @@ watch(selectedDate, async () => {
     </a-col>
 
     <a-col :span="24" :md="9">
-      <MatchTimeline v-if="fixtures" :fixtures="fixtures" />
+      <template v-if="leagueFixtures">
+        <MatchTimeline :league-fixtures="leagueFixtures" />
+      </template>
+      <temlate v-else>
+        <a-card v-for="item, index in [1, 2, 3, 4, 5, 6]" :key="index" size="small" loading>
+          {{ item }}
+        </a-card>
+      </temlate>
     </a-col>
 
     <a-col :span="24" :md="8">
-      <a-card>
-        いいいいいい
+      <a-card class="video-content">
+        <iframe
+          width="310"
+          height="180"
+          src="https://www.youtube.com/embed/videoseries?list=PLQ_voP4Q3cfeT5QqIr7RA7BEc2zGMn0nl"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        />
+      </a-card>
+
+      <a-card class="video-content">
+        <iframe
+          width="310"
+          height="180"
+          src="https://www.youtube.com/embed/videoseries?list=PLEfXwIkfHxL-72tN494qs53P40hnBrDRW"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        />
+      </a-card>
+
+      <a-card class="video-content">
+        <iframe
+          width="310"
+          height="180"
+          src="https://www.youtube.com/embed/videoseries?list=PLEfXwIkfHxL-3BuYA9Gh8EnkZvVuBQd2m"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        />
       </a-card>
     </a-col>
   </a-row>
@@ -47,5 +86,9 @@ watch(selectedDate, async () => {
 <style scoped lang="scss">
 .match-calendar {
   margin-bottom: 12px;
+}
+
+.video-content {
+  margin-bottom: 14px;
 }
 </style>
