@@ -8,6 +8,5 @@ export default defineNuxtConfig({
       API_PATH: process.env.API_PATH,
       API_KEY: process.env.API_KEY
     }
-  },
-  plugins: ['@/plugins/antd']
+  }
 });
