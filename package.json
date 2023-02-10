@@ -7,7 +7,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint --ext .ts,.js,.vue .",
-    "lint:fix": "eslint --ext .ts,.js,.vue . --fix"
+    "lint:fix": "eslint --ext .ts,.js,.vue . --fix",
+    "typecheck": "npx nuxi typecheck ."
   },
   "devDependencies": {
     "@ant-design/icons-vue": "^6.1.0",
