@@ -36,7 +36,7 @@ watch(selectedDate, async () => {
       <template v-if="leagueFixtures">
         <MatchTimeline :league-fixtures="leagueFixtures" />
       </template>
-      <temlate>
+      <temlate v-else>
         <a-card v-for="item, index in [1, 2, 3, 4, 5, 6]" :key="index" size="small" loading>
           {{ item }}
         </a-card>
