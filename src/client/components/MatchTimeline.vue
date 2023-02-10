@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { GetFixturesByData } from '@@/src/server/utils/responseTypes/GetFixturesByData';
+import type { GetFixturesByData } from '~~/src/types/response_types/GetFixturesByData';
 
 type Props = {
   fixtures: GetFixturesByData

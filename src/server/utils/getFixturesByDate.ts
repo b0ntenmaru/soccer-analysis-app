@@ -1,5 +1,5 @@
 import { useSportmonksApi } from '@@/src/server/utils/useSportmonksApi';
-import type { GetFixturesByData } from '@@/src/server/utils/responseTypes/GetFixturesByData';
+import type { GetFixturesByData } from '@@/src/types/response_types/GetFixturesByData';
 
 const { apiPath, apiKey } = useSportmonksApi();
 

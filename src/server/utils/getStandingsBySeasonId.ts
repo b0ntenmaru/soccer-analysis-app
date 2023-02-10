@@ -1,5 +1,5 @@
 import { useSportmonksApi } from '@@/src/server/utils/useSportmonksApi';
-import type { GetStandingsBySeasonId } from '~~/src/server/utils/responseTypes/GetStandingsBySeasonId';
+import type { GetStandingsBySeasonId } from '@@/src/types/response_types/GetStandingsBySeasonId';
 
 const { apiPath, apiKey } = useSportmonksApi();
 

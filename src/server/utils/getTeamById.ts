@@ -1,5 +1,5 @@
 import { useSportmonksApi } from '@@/src/server/utils/useSportmonksApi';
-import type { GetTeamByIdData } from '@@/src/server/utils/responseTypes/GetTeamByIdData';
+import type { GetTeamByIdData } from '@@/src/types/response_types/GetTeamByIdData';
 
 const { apiPath, apiKey } = useSportmonksApi();
 
