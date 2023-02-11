@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { data: leagues, pending } = await useFetch('/api/v1/leagues', { lazy: true });
+const { data: leagues } = await useFetch('/api/v1/leagues', { lazy: true });
 
 const topLeagueIds = [2, 5, 8, 24, 72, 82, 301, 384, 390, 564, 570];
 
@@ -17,7 +17,7 @@ const topLeagues = computed(() => {
 </script>
 
 <template>
-  <v-list rounded="md">
+  <v-list v-if="leagues" rounded="lg">
     <v-list-item v-for="league in topLeagues" :key="league.id" link :to="`leagues/${league.id}`">
       <div class="league-list-item">
         <div>
