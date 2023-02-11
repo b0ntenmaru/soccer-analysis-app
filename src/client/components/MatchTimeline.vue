@@ -9,17 +9,17 @@ const props = defineProps<Props>();
 </script>
 
 <template>
-  <v-list v-for="leagueFixture in props.leagueFixtures" :key="leagueFixture.league_id" rounded="lg" class="match-timeline">
+  <v-list v-for="leagueFixture in props.leagueFixtures" :key="leagueFixture.league_id" rounded="lg" class="match-timeline" border>
     <section>
       <span><img :src="leagueFixture.league_logo_path" :style="{width: '30px' }"></span>
       <span>{{ leagueFixture.league_name }}</span>
     </section>
 
-    <v-list-item v-for="fixture, index in leagueFixture.fixtures" :key="index" size="small" link border>
+    <v-list-item v-for="fixture, index in leagueFixture.fixtures" :key="index" size="small" link>
       <div class="fixture">
         <div class="local-team team">
           <div class="team-name">
-            <img :src="fixture.local_team.logo_path" class="team-logo" width="20">
+            <img :src="fixture.local_team.logo_path" class="team-logo" width="38">
             <span>{{ fixture.local_team.name }}</span>
           </div>
 
@@ -43,7 +43,7 @@ const props = defineProps<Props>();
             {{ fixture.scores.visitorteam_score }}
           </span>
           <div class="team-name">
-            <img :src="fixture.visitor_team.logo_path" class="team-logo" width="20">
+            <img :src="fixture.visitor_team.logo_path" class="team-logo" width="38">
             <span>{{ fixture.visitor_team.name }}</span>
           </div>
         </div>

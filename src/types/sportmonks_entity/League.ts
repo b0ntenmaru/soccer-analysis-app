@@ -20,6 +20,9 @@ export type League = {
   },
   seasons: {
     data: Array<Season>;
+  },
+  country: {
+    data: Country
   }
 }
 
@@ -30,4 +33,11 @@ type Season = {
   is_current_season: boolean;
   current_round_id: number | null;
   current_stage_id: number | null;
+}
+
+type Country = {
+  id: number;
+  name: string;
+  image_path: string;
+  extra: any
 }

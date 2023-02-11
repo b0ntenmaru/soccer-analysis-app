@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: 'home'
+});
+
 // const value = ref<Dayjs>();
 const selectedDate = ref<string>();
 // const selectDate = (value: Dayjs) => {
@@ -17,7 +21,7 @@ watch(selectedDate, async () => {
 <template>
   <v-row>
     <v-col cols="12" sm="3">
-      <v-sheet rounded="lg">
+      <v-sheet rounded="lg" border>
         <TopLeagues />
       </v-sheet>
     </v-col>
