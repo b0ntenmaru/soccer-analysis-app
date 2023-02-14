@@ -13,7 +13,7 @@
     </v-app-bar>
 
     <v-main class="bg-blue-grey-lighten-5">
-      <v-container>
+      <v-container style="width: 1100px">
         <slot />
       </v-container>
     </v-main>

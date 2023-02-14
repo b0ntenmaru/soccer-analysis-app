@@ -9,41 +9,43 @@ const props = defineProps<Props>();
 </script>
 
 <template>
-  <v-list v-for="leagueFixture in props.leagueFixtures" :key="leagueFixture.league_id" rounded="lg" class="match-timeline">
-    <h3 :style="{ margin: 0}">
-      <img :src="leagueFixture.league_logo_path" :style="{width: '40px' }">
-      {{ leagueFixture.league_name }}
-    </h3>
+  <v-list v-for="leagueFixture in props.leagueFixtures" :key="leagueFixture.league_id" rounded="lg" class="match-timeline" border>
+    <section>
+      <span><img :src="leagueFixture.league_logo_path" :style="{width: '30px' }"></span>
+      <span>{{ leagueFixture.league_name }}</span>
+    </section>
 
     <v-list-item v-for="fixture, index in leagueFixture.fixtures" :key="index" size="small" link>
-      <div class="league-fixture">
-        <div class="fixture-detail">
-          <div class="team">
-            <div class="team-name">
-              <img :src="fixture.local_team.logo_path" class="team-logo">
-              <span>{{ fixture.local_team.name }}</span>
-            </div>
-
-            <div>
-              {{ fixture.scores.localteam_score }}
-            </div>
+      <div class="fixture">
+        <div class="local-team team">
+          <div class="team-name">
+            <img :src="fixture.local_team.logo_path" class="team-logo" width="38">
+            <span>{{ fixture.local_team.name }}</span>
           </div>
 
-          <div class="team">
-            <div class="team-name">
-              <img :src="fixture.visitor_team.logo_path" class="team-logo">
-              <span>{{ fixture.visitor_team.name }}</span>
-            </div>
+          <span>
+            {{ fixture.scores.localteam_score }}
+          </span>
+        </div>
 
-            <div>
-              {{ fixture.scores.visitorteam_score }}
-            </div>
+        <div class="info">
+          <div>
+            ー
+          </div>
+          <div class="sub">
+            <span>{{ fixture.time.starting_at.time }}</span>
+            <span>{{ fixture.time.status }}</span>
           </div>
         </div>
 
-        <div class="fixture-date">
-          <span>{{ fixture.time.starting_at.time }}</span>
-          <span>{{ fixture.time.status }}</span>
+        <div class="visitor-team team">
+          <span>
+            {{ fixture.scores.visitorteam_score }}
+          </span>
+          <div class="team-name">
+            <img :src="fixture.visitor_team.logo_path" class="team-logo" width="38">
+            <span>{{ fixture.visitor_team.name }}</span>
+          </div>
         </div>
       </div>
     </v-list-item>
@@ -51,47 +53,58 @@ const props = defineProps<Props>();
 </template>
 
 <style scoped lang="scss">
-div.match-timeline {
+
+.match-timeline {
   margin-bottom: 14px;
 
-  h3 {
+  section {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
+    padding: 0 10px;
   }
 }
 
-.league-fixture {
+.fixture {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
+  padding: 14px 0;
 
-  .fixture-detail {
-    width: 234px;
+  .team {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
-    justify-content: center;
+    align-items: center;
 
-    .team {
+    .team-name {
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 170px;
 
-      .team-name {
-        display: flex;
-        gap: 6px;
-        width: 180px;
+      span {
+        text-align: center;
       }
     }
-  }
 
-  img.team-logo {
-    width: 20px;
+    .team-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
   }
-
-  .fixture-date {
+  .info {
     display: flex;
     flex-direction: column;
+    font-size: 10px;
     align-items: center;
+    position: relative;
+    top: 12px;
+
+    .sub {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
   }
 }
 </style>
