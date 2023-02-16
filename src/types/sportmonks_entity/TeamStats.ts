@@ -1,7 +1,7 @@
 
-type StatsData = Array<Stats>;
+export type TeamStatsData = Array<TeamStats>;
 
-type Stats = {
+type TeamStats = {
   team_id: number;
   season_id: number;
   stage_id: number;
@@ -238,25 +238,4 @@ type Stats = {
    */
   avg_player_rating_per_match: number;
   tackles: number;
-}
-
-/**
- * /teams/[id]が返すDataの型
- */
-type GetTeamSeasonStatsData = {
-  id: number;
-  legacy_id: number;
-  name: string;
-  short_code: string;
-  twitter: string;
-  country_id: number;
-  national_team: false;
-  founded: number;
-  logo_path: string;
-  venue_id: number;
-  current_season_id: number;
-  is_placeholder: false;
-  stats: {
-    data: StatsData;
-  }
 }

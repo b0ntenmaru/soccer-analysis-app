@@ -9,6 +9,11 @@ watch(() => props.seasonId, async () => {
   const { data } = await useFetch(`/api/v1/standings/season/${props.seasonId}`, { lazy: true });
   seasonStandingsData.value = data.value;
 });
+
+const currentStandings = (teamId: number) => {
+  const viewedTeamId = useRoute().params.id;
+  return viewedTeamId === String(teamId);
+};
 </script>
 
 <template>
@@ -26,7 +31,7 @@ watch(() => props.seasonId, async () => {
           #
         </th>
         <th class="text-left">
-          チーム名
+          名前
         </th>
         <th class="text-left">
           試合
@@ -46,18 +51,17 @@ watch(() => props.seasonId, async () => {
       </tr>
     </thead>
     <tbody>
-      <tr v-for="standings in seasonStandings.standings.data" :key="standings.team_id">
+      <tr
+        v-for="standings in seasonStandings.standings.data"
+        :key="standings.team_id"
+        :class="{currentPosition: currentStandings(standings.team_id)}"
+      >
         <td>
           {{ standings.position }}
         </td>
-        <td width="200">
+        <td>
           <NuxtLink :to="`/teams/${standings.team_id}/seasons/${props.seasonId}`">
-            <v-avatar size="20" cover rounded>
-              <v-img
-                :src="standings.team.data.logo_path"
-              />
-            </v-avatar>
-            {{ standings.team_name }}
+            {{ standings.team.data.short_code }}
           </NuxtLink>
         </td>
         <td>
@@ -78,11 +82,16 @@ watch(() => props.seasonId, async () => {
       </tr>
     </tbody>
   </v-table>
-
-  <!-- <div v-for="seasonStandings in seasonStandingsData" :key="seasonStandings.id">
-    {{ seasonStandings }}
-  </div> -->
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
+th, td {
+  padding: 0 !important;
+  text-align: center !important;
+}
+
+.currentPosition {
+  background: #dbf2fd;
+  color: #1b5673;
+}
 </style>
