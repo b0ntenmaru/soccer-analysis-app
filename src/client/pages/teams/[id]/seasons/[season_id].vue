@@ -1,17 +1,12 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'side-nav'
+  layout: 'home'
 });
 
 const id = useRoute().params.id;
-const seasonId = Number(useRoute().params.season_id);
-const { data: team } = await useFetch(`/api/v1/teams/${id}/seasons/${seasonId}`, {
+const { data: team } = await useFetch(`/api/v1/teams/${id}`, {
   lazy: true
 });
-
-const tab = ref('Appetizers');
-const items = ref(['サマリー', 'スタッツ', '順位表', 'トップ選手']);
-const text = ref('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.');
 
 const teamProfile = computed(() => {
   if (team.value === null) { return; }
@@ -69,13 +64,13 @@ const teamProfile = computed(() => {
       </v-card>
 
       <v-card>
-        <StandingsTableSummary :season-id="seasonId" />
+        <!-- <StandingsTableSummary :season-id="seasonId" /> -->
       </v-card>
     </v-col>
 
     <v-col cols="12" md="8">
       <v-card>
-        {{ team.stats?.data[0] }}
+        ああああ
       </v-card>
     </v-col>
   </v-row>
