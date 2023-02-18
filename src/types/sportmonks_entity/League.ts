@@ -1,3 +1,5 @@
+import type { Season } from '@@/src/types/sportmonks_entity/Season';
+
 export type League = {
   id: number;
   active: boolean;
@@ -24,15 +26,6 @@ export type League = {
   country: {
     data: Country
   }
-}
-
-type Season = {
-  id: number;
-  name: string;
-  league_id: number;
-  is_current_season: boolean;
-  current_round_id: number | null;
-  current_stage_id: number | null;
 }
 
 type Country = {
