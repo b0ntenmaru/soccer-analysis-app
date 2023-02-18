@@ -47,7 +47,7 @@ const tab = ref();
                 density="compact"
                 width="140"
                 variant="underlined"
-                :style="{'display': 'inline-block'}"
+                style="display': 'inline-block'}"
               />
             </div>
             <v-tabs

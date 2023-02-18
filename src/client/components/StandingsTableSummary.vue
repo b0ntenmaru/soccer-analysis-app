@@ -60,7 +60,7 @@ const currentStandings = (teamId: number) => {
           {{ standings.position }}
         </td>
         <td>
-          <NuxtLink :to="`/teams/${standings.team_id}/seasons/${props.seasonId}`">
+          <NuxtLink :to="`/teams/${standings.team_id}`">
             {{ standings.team.data.short_code }}
           </NuxtLink>
         </td>

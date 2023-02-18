@@ -3,8 +3,12 @@ definePageMeta({
   layout: 'home'
 });
 
-const id = useRoute().params.id;
-const { data: team } = await useFetch(`/api/v1/teams/${id}`, {
+const teamId = useRoute().params.id;
+const { data: team } = await useFetch(`/api/v1/teams/${teamId}`, {
+  lazy: true
+});
+
+const { data: leagueSeasons } = await useFetch(`/api/v1/teams/${teamId}/history`, {
   lazy: true
 });
 
@@ -21,6 +25,23 @@ const teamProfile = computed(() => {
     }
   };
 });
+
+const selectedLeagueId = ref<number>();
+const leagues = computed(() => {
+  return leagueSeasons.value?.map((leagueSeason) => {
+    return {
+      leagueId: leagueSeason.leagueId,
+      leagueName: leagueSeason.leagueName
+    };
+  });
+});
+
+const selectedSeasonId = ref<number>();
+const seasons = computed(() => {
+  const leagueSeason = leagueSeasons.value?.find(leagueSeason => leagueSeason.leagueId === selectedLeagueId.value);
+  return leagueSeason?.seasons.reverse();
+});
+
 </script>
 
 <template>
@@ -32,6 +53,24 @@ const teamProfile = computed(() => {
           :name="team.name"
           :country-logo-path="team.country.data.image_path"
         />
+        <div style="padding: 0 20px;">
+          <v-select
+            v-model="selectedLeagueId"
+            label="リーグを選択"
+            variant="underlined"
+            :items="leagues"
+            item-title="leagueName"
+            item-value="leagueId"
+          />
+          <v-select
+            v-model="selectedSeasonId"
+            label="シーズンを選択"
+            variant="underlined"
+            :items="seasons"
+            item-title="name"
+            item-value="id"
+          />
+        </div>
       </v-card>
 
       <v-card style="margin-bottom: 16px;">
@@ -64,7 +103,7 @@ const teamProfile = computed(() => {
       </v-card>
 
       <v-card>
-        <!-- <StandingsTableSummary :season-id="seasonId" /> -->
+        <StandingsTableSummary v-if="selectedSeasonId" :season-id="selectedSeasonId" />
       </v-card>
     </v-col>
 

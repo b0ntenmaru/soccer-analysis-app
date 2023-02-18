@@ -4,6 +4,8 @@ export const convertToLeagueSeasons = (data: GetAllLeaguesByTeamIdData): Array<L
   const dto: Array<LeagueSeasons> = [];
 
   data.forEach((d) => {
+    if (d.league === undefined) { return; }
+
     if (dto.some(dtoObj => dtoObj.leagueId === d.league?.data.id)) {
       // 既にdtoの中にリーグが存在していたら対象のリーグ内にシーズンを追加
       const index = dto.findIndex(dtoObj => dtoObj.leagueId === d.league?.data.id);
@@ -11,8 +13,9 @@ export const convertToLeagueSeasons = (data: GetAllLeaguesByTeamIdData): Array<L
     } else {
       // まだdtoの中にリーグが存在していなければリーグを新規作成して追加
       dto.push({
-        leagueId: d.league?.data.id,
-        leagueName: d.league?.data.name,
+        leagueId: d.league.data.id,
+        leagueName: d.league.data.name,
+        leaguetype: d.league.data.type,
         seasons: [
           {
             id: d.id,
@@ -28,5 +31,6 @@ export const convertToLeagueSeasons = (data: GetAllLeaguesByTeamIdData): Array<L
 type LeagueSeasons = {
   leagueId?: number;
   leagueName?: string;
+  leaguetype: 'cup_international' | 'domestic_cup' | 'domestic';
   seasons: Array<{ id: number; name: string;}>
 }
