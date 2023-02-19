@@ -58,9 +58,7 @@ const seasons = league.value?.seasons?.data.map((season) => {
     </v-col>
 
     <v-col cols="12" md="8">
-      <v-card title="順位表">
-        <StandingsTable v-if="selectedSeasonId" :season-id="selectedSeasonId" />
-      </v-card>
+      <StandingsTable v-if="selectedSeasonId" :season-id="selectedSeasonId" />
     </v-col>
   </v-row>
 </template>
