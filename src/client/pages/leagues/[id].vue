@@ -1,30 +1,36 @@
 <script setup lang="ts">
+import { League } from '@@/src/types/sportmonks_entity/League';
+
 definePageMeta({
   layout: 'home'
 });
 
-const leagueId = useRoute().params.id;
-const { data: league } = await useFetch(`/api/v1/leagues/${leagueId}`);
+const leagueId = ref(Number(useRoute().params.id));
+const league = ref<League | null>(null);
+const selectedSeasonId = ref<number | null>(null);
+const seasons = ref<Array<{ id: number; name: string;}> | null>(null);
 
-const latestSeason = computed(() => {
-  if (league.value === null) { return; }
-  return league.value.seasons.data.find(season => season.is_current_season === true);
-});
-
-const selectedSeasonId = ref<number | undefined>(latestSeason.value?.id);
-
-const seasons = league.value?.seasons?.data.map((season) => {
-  return {
-    id: season.id,
-    name: season.name
-  };
-}).reverse();
+const { pending } = await useAsyncData(
+  'league',
+  () => $fetch(`/api/v1/leagues/${leagueId.value}`).then((data) => {
+    league.value = data;
+    selectedSeasonId.value = league.value.current_season_id;
+    seasons.value = league.value.seasons.data.map((season) => {
+      return {
+        id: season.id,
+        name: season.name
+      };
+    }).reverse();
+    return data;
+  }),
+  { lazy: true, watch: [leagueId] }
+);
 </script>
 
 <template>
   <v-row v-if="league" justify-md="center" style="margin-top: 5px;">
     <v-col cols="12" md="4">
-      <v-card style="margin-bottom: 16px;">
+      <v-card style="margin-bottom: 16px;" :loading="pending">
         <div class="league-profile">
           <v-avatar size="150" cover rounded>
             <v-img
@@ -36,6 +42,7 @@ const seasons = league.value?.seasons?.data.map((season) => {
 
         <div class="season-selecter">
           <v-select
+            v-if="seasons"
             v-model="selectedSeasonId"
             label="シーズン"
             :items="seasons"
