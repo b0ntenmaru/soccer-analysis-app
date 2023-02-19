@@ -4,12 +4,21 @@ definePageMeta({
 });
 
 const teamId = useRoute().params.id;
+const selectedLeagueId = ref<number>();
+const selectedSeasonId = ref<number>();
+
 const { data: team } = await useFetch(`/api/v1/teams/${teamId}`, {
   lazy: true
 });
-
 const { data: leagueSeasons } = await useFetch(`/api/v1/teams/${teamId}/history`, {
   lazy: true
+});
+
+onUpdated(() => {
+  selectedLeagueId.value = team.value?.league.data.id;
+
+  if (seasons.value == null) { return; }
+  selectedSeasonId.value = seasons.value[0].id;
 });
 
 const teamProfile = computed(() => {
@@ -18,15 +27,14 @@ const teamProfile = computed(() => {
   return {
     twitter: team.value.twitter,
     founded: team.value.founded,
-    totalPlayers: team.value.squad?.data.length,
+    totalPlayers: team.value.squad.data.length,
     coach: {
-      fullname: team.value.coach?.data.fullname,
-      imagePath: team.value.coach?.data.image_path
+      fullname: team.value.coach.data.fullname,
+      imagePath: team.value.coach.data.image_path
     }
   };
 });
 
-const selectedLeagueId = ref<number>();
 const leagues = computed(() => {
   return leagueSeasons.value?.map((leagueSeason) => {
     return {
@@ -36,7 +44,6 @@ const leagues = computed(() => {
   });
 });
 
-const selectedSeasonId = ref<number>();
 const seasons = computed(() => {
   const leagueSeason = leagueSeasons.value?.find(leagueSeason => leagueSeason.leagueId === selectedLeagueId.value);
   return leagueSeason?.seasons.reverse();

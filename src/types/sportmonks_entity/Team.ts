@@ -21,22 +21,22 @@ export type Team = {
   country: {
     data: Country
   };
-  squad?: {
+  squad: {
     data: Array<Squad>;
   };
-  coach?: {
+  coach: {
     data: Coach;
   };
-  stats?: {
+  stats: {
     data: TeamStatsData;
   },
-  activeSeasons?: {
+  activeSeasons: {
     data: Array<Season>;
   },
-  trophies?: {
+  trophies: {
     data: Array<Trophie>;
   },
-  league?: {
+  league: {
     data: League
   }
 }
