@@ -9,6 +9,24 @@ watch(() => props.seasonId, async () => {
   const { data } = await useFetch(`/api/v1/standings/season/${props.seasonId}`, { lazy: true });
   seasonStandingsData.value = data.value;
 });
+
+const displayResentForm = (recentRormString: string) => {
+  return recentRormString.split('');
+};
+
+const displayPositionResult = (result: string | null) => {
+  if (result === 'UEFA Champions League') {
+    return 'champions-league';
+  }
+
+  if (result === 'UEFA Europa League') {
+    return 'europa-league';
+  }
+
+  if (result === 'Relegation') {
+    return 'relegation';
+  }
+};
 </script>
 
 <template>
@@ -17,7 +35,7 @@ watch(() => props.seasonId, async () => {
     :key="seasonStandings.id"
     density="compact"
     hover
-    style="margin-bottom: 16px; border-radius: 8px; font-size: 14px;"
+    style="font-size: 12px;"
     rounded="lg"
   >
     <thead>
@@ -29,7 +47,7 @@ watch(() => props.seasonId, async () => {
           チーム名
         </th>
         <th class="text-left">
-          試合
+          試合数
         </th>
         <th class="text-left">
           勝
@@ -40,18 +58,26 @@ watch(() => props.seasonId, async () => {
         <th class="text-left">
           負
         </th>
+        <th>
+          得:失
+        </th>
         <th class="text-left">
           Pts
+        </th>
+        <th class="text-left">
+          直近5試合
         </th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="standings in seasonStandings.standings.data" :key="standings.team_id">
         <td>
-          {{ standings.position }}
+          <span :class="displayPositionResult(standings.result)" class="position">
+            {{ standings.position }}
+          </span>
         </td>
         <td width="200">
-          <NuxtLink :to="`/teams/${standings.team_id}`">
+          <NuxtLink :to="`/teams/${standings.team_id}`" style="text-decoration: none;">
             <v-avatar size="20" cover rounded>
               <v-img
                 :src="standings.team.data.logo_path"
@@ -73,16 +99,97 @@ watch(() => props.seasonId, async () => {
           {{ standings.overall.lost }}
         </td>
         <td>
+          {{ standings.overall.goals_scored }}:{{ standings.overall.goals_against }}
+        </td>
+        <td>
           {{ standings.overall.points }}
+        </td>
+        <td class="recent-form">
+          <span v-for="item in displayResentForm(standings.recent_form)" :key="item">
+            <template v-if="item === 'W'">
+              <span class="won">
+                {{ item }}
+              </span>
+            </template>
+            <template v-if="item === 'L'">
+              <span class="lost">
+                {{ item }}
+              </span>
+            </template>
+            <template v-if="item === 'D'">
+              <span class="draw">
+                {{ item }}
+              </span>
+            </template>
+          </span>
         </td>
       </tr>
     </tbody>
   </v-table>
-
-  <!-- <div v-for="seasonStandings in seasonStandingsData" :key="seasonStandings.id">
-    {{ seasonStandings }}
-  </div> -->
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
+
+td {
+  padding: 0 6px;
+}
+td.recent-form {
+  display: flex;
+  align-items: center;
+
+  span {
+    width: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 26px;
+    padding: 1px 2px;
+  }
+}
+
+span.position {
+  width: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 29px;
+  padding: 2px 4px;
+}
+
+span.relegation {
+  background: rgb(193, 38, 45);;
+  color: #fff;
+  font-weight: bold;
+}
+
+span.champions-league {
+  background: rgb(21 104 177);
+  color: #fff;
+  font-weight: bold;
+}
+
+span.europa-league {
+  background: rgb(177 136 21);
+  color: #fff;
+  font-weight: bold;
+}
+
+span.won {
+  background: rgb(21, 177, 104);
+  color: #fff;
+  font-weight: bold;
+}
+
+span.lost {
+  background: rgb(199, 54, 31);;
+  color: #fff;
+  font-weight: bold;
+}
+
+span.draw {
+  background: rgb(164, 169, 179);;
+  color: #fff;
+  font-weight: bold;
+}
+
 </style>
