@@ -1,3 +1,4 @@
+import type { League } from './League';
 import type { Country } from '@@/src/types/sportmonks_entity/Country';
 import type { Coach } from '@@/src/types/sportmonks_entity/Coach';
 import type { Squad } from '@@/src/types/sportmonks_entity/Squad';
@@ -34,6 +35,9 @@ export type Team = {
   },
   trophies?: {
     data: Array<Trophie>;
+  },
+  league?: {
+    data: League
   }
 }
 
