@@ -1,9 +1,9 @@
 import { useSportmonksApi } from '@@/src/server/utils/useSportmonksApi';
-import type { GetStandingsBySeasonIdData } from '~~/src/types/response_types/GetStandingsBySeasonIdData';
+import type { GetSeasonStatsByIdData } from 'src/types/response_types/GetSeasonStatsByIdData';
 
 const { apiPath, apiKey } = useSportmonksApi();
 
-export const getSeasonStatsById = async (args: { seasonId: number }): Promise<GetStandingsBySeasonIdData> => {
+export const getSeasonStatsById = async (args: { seasonId: number }): Promise<GetSeasonStatsByIdData> => {
   const { seasonId } = args;
 
   const response: any = await $fetch(
