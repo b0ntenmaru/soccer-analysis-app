@@ -104,7 +104,6 @@ type Stats = {
   mostcornersteam: Team;
 };
 
-
 type Player = {
   player_id: number;
   team_id: number;
