@@ -81,6 +81,17 @@ const displayPositionResult = (result: string | null) => {
         <tr v-for="standings in seasonStandings.standings.data" :key="standings.team_id">
           <td>
             <span :class="displayPositionResult(standings.result)" class="position">
+              <v-tooltip v-if="standings.result" activator="parent" location="bottom">
+                <template v-if="standings.result === 'UEFA Champions League'">
+                  チャンピオンズリーグ出場圏内
+                </template>
+                <template v-if="standings.result === 'UEFA Europa League'">
+                  ヨーロッパリーグ出場圏内
+                </template>
+                <template v-if="standings.result === 'Relegation'">
+                  降格圏内
+                </template>
+              </v-tooltip>
               {{ standings.position }}
             </span>
           </td>
