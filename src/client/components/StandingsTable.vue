@@ -51,7 +51,7 @@ watch(() => props.seasonId, async () => {
           {{ standings.position }}
         </td>
         <td width="200">
-          <NuxtLink :to="`/teams/${standings.team_id}/seasons/${props.seasonId}`">
+          <NuxtLink :to="`/teams/${standings.team_id}`">
             <v-avatar size="20" cover rounded>
               <v-img
                 :src="standings.team.data.logo_path"

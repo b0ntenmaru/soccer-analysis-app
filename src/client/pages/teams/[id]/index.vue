@@ -1,17 +1,25 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'side-nav'
+  layout: 'home'
 });
 
-const id = useRoute().params.id;
-const seasonId = Number(useRoute().params.season_id);
-const { data: team } = await useFetch(`/api/v1/teams/${id}/seasons/${seasonId}`, {
+const teamId = useRoute().params.id;
+const selectedLeagueId = ref<number>();
+const selectedSeasonId = ref<number>();
+
+const { data: team } = await useFetch(`/api/v1/teams/${teamId}`, {
+  lazy: true
+});
+const { data: leagueSeasons } = await useFetch(`/api/v1/teams/${teamId}/history`, {
   lazy: true
 });
 
-const tab = ref('Appetizers');
-const items = ref(['サマリー', 'スタッツ', '順位表', 'トップ選手']);
-const text = ref('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.');
+onUpdated(() => {
+  selectedLeagueId.value = team.value?.league.data.id;
+
+  if (seasons.value == null) { return; }
+  selectedSeasonId.value = seasons.value[0].id;
+});
 
 const teamProfile = computed(() => {
   if (team.value === null) { return; }
@@ -19,13 +27,28 @@ const teamProfile = computed(() => {
   return {
     twitter: team.value.twitter,
     founded: team.value.founded,
-    totalPlayers: team.value.squad?.data.length,
+    totalPlayers: team.value.squad.data.length,
     coach: {
-      fullname: team.value.coach?.data.fullname,
-      imagePath: team.value.coach?.data.image_path
+      fullname: team.value.coach.data.fullname,
+      imagePath: team.value.coach.data.image_path
     }
   };
 });
+
+const leagues = computed(() => {
+  return leagueSeasons.value?.map((leagueSeason) => {
+    return {
+      leagueId: leagueSeason.leagueId,
+      leagueName: leagueSeason.leagueName
+    };
+  });
+});
+
+const seasons = computed(() => {
+  const leagueSeason = leagueSeasons.value?.find(leagueSeason => leagueSeason.leagueId === selectedLeagueId.value);
+  return leagueSeason?.seasons.reverse();
+});
+
 </script>
 
 <template>
@@ -37,6 +60,24 @@ const teamProfile = computed(() => {
           :name="team.name"
           :country-logo-path="team.country.data.image_path"
         />
+        <div style="padding: 0 20px;">
+          <v-select
+            v-model="selectedLeagueId"
+            label="リーグを選択"
+            variant="underlined"
+            :items="leagues"
+            item-title="leagueName"
+            item-value="leagueId"
+          />
+          <v-select
+            v-model="selectedSeasonId"
+            label="シーズンを選択"
+            variant="underlined"
+            :items="seasons"
+            item-title="name"
+            item-value="id"
+          />
+        </div>
       </v-card>
 
       <v-card style="margin-bottom: 16px;">
@@ -69,13 +110,13 @@ const teamProfile = computed(() => {
       </v-card>
 
       <v-card>
-        <StandingsTableSummary :season-id="seasonId" />
+        <StandingsTableSummary v-if="selectedSeasonId" :season-id="selectedSeasonId" />
       </v-card>
     </v-col>
 
     <v-col cols="12" md="8">
       <v-card>
-        {{ team.stats?.data[0] }}
+        ああああ
       </v-card>
     </v-col>
   </v-row>

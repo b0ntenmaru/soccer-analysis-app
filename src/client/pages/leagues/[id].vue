@@ -11,7 +11,7 @@ const latestSeason = computed(() => {
 
 const selectedSeasonId = ref<number | undefined>(latestSeason.value?.id);
 
-const seasons = league.value?.seasons.data.map((season) => {
+const seasons = league.value?.seasons?.data.map((season) => {
   return {
     id: season.id,
     name: season.name
@@ -47,7 +47,7 @@ const tab = ref();
                 density="compact"
                 width="140"
                 variant="underlined"
-                :style="{'display': 'inline-block'}"
+                style="display': 'inline-block'}"
               />
             </div>
             <v-tabs
