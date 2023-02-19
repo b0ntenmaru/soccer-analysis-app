@@ -20,10 +20,10 @@ export type League = {
     topscorer_assists: boolean;
     topscorer_cards: boolean;
   },
-  seasons?: {
+  seasons: {
     data: Array<Season>;
   },
-  country?: {
+  country: {
     data: Country
   }
 }
