@@ -259,7 +259,31 @@ export type GetSeasonStatsByIdData = {
       };
     };
   };
+  goalscorers: {
+    data: Array<TopPlayer>
+  };
+  assistscorers: {
+    data: Array<TopPlayer>;
+  };
+  cardscorers: {
+    data: Array<TopPlayer>;
+  };
 };
+
+export type TopPlayer = {
+  position: number;
+  season_id: number;
+  player_id: number;
+  team_id: number;
+  stage_id: number;
+  goals?: number;
+  assists?: number;
+  penalty_goals: number;
+  type: string;
+  player: {
+    data: Player;
+  }
+}
 
 type Player = {
   player_id: number;
@@ -278,6 +302,9 @@ type Player = {
   height: string;
   weight: string;
   image_path: string;
+  team: {
+    data: Team;
+  }
 };
 
 type Team = {
