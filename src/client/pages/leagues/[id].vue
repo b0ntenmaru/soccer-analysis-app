@@ -1,30 +1,44 @@
 <script setup lang="ts">
-import { League } from '@@/src/types/sportmonks_entity/League';
+import { Season } from '@@/src/types/sportmonks_entity/Season';
 
 definePageMeta({
   layout: 'home'
 });
 
-const leagueId = ref(Number(useRoute().params.id));
-const league = ref<League | null>(null);
+const leagueId = useRoute().params.id;
 const selectedSeasonId = ref<number | null>(null);
 const seasons = ref<Array<{ id: number; name: string;}> | null>(null);
 
-const { pending } = await useAsyncData(
-  'league',
-  () => $fetch(`/api/v1/leagues/${leagueId.value}`).then((data) => {
-    league.value = data;
-    selectedSeasonId.value = league.value.current_season_id;
-    seasons.value = league.value.seasons.data.map((season) => {
-      return {
-        id: season.id,
-        name: season.name
-      };
-    }).reverse();
+const { data: league, pending } = useAsyncData(
+  `league-${leagueId}`,
+  () => $fetch(`/api/v1/leagues/${leagueId}`).then((data) => {
+    selectedSeasonId.value = data.current_season_id;
+    seasons.value = seasonGenerator(data.seasons.data);
     return data;
   }),
-  { lazy: true, watch: [leagueId] }
+  {
+    lazy: true
+  }
 );
+
+const { data: seasonStats, pending: seasonStatsPending } = useAsyncData(
+  `season-stats-${leagueId}`,
+  () => $fetch(`/api/v1/seasons/${selectedSeasonId.value}`),
+  {
+    immediate: false,
+    lazy: true,
+    watch: [selectedSeasonId]
+  }
+);
+
+const seasonGenerator = (seasons: Array<Season>) => {
+  return seasons.map((season) => {
+    return {
+      id: season.id,
+      name: season.name
+    };
+  }).reverse();
+};
 </script>
 
 <template>
@@ -55,12 +69,8 @@ const { pending } = await useAsyncData(
         </div>
       </v-card>
 
-      <v-card style="margin-bottom: 16px;">
-        ああああ
-        ああああ
-        ああああ
-        ああああ
-        ああああ
+      <v-card style="margin-bottom: 16px;" :loading="seasonStatsPending">
+        {{ seasonStats }}
       </v-card>
     </v-col>
 
