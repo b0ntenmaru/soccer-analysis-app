@@ -3,28 +3,30 @@ definePageMeta({
   layout: 'home'
 });
 
-const leagueId = useRoute().params.id;
-const { data: league } = await useFetch(`/api/v1/leagues/${leagueId}`);
+const {
+  selectedSeasonId,
+  seasons,
+  league,
+  leaguePending,
+  seasonStats,
+  seasonStatsPending,
+  seasonStandingsData,
+  seasonStandingsDataPending
+} = useLeagueDetail();
 
-const latestSeason = computed(() => {
-  if (league.value === null) { return; }
-  return league.value.seasons.data.find(season => season.is_current_season === true);
+const topGoalScorers = computed(() => {
+  return seasonStats.value?.goalscorers.data;
 });
 
-const selectedSeasonId = ref<number | undefined>(latestSeason.value?.id);
-
-const seasons = league.value?.seasons?.data.map((season) => {
-  return {
-    id: season.id,
-    name: season.name
-  };
-}).reverse();
+const topAssistScorers = computed(() => {
+  return seasonStats.value?.assistscorers.data;
+});
 </script>
 
 <template>
   <v-row v-if="league" justify-md="center" style="margin-top: 5px;">
-    <v-col cols="12" md="4">
-      <v-card style="margin-bottom: 16px;">
+    <v-col cols="12" md="12">
+      <v-card style="margin-bottom: 16px;" :loading="leaguePending">
         <div class="league-profile">
           <v-avatar size="150" cover rounded>
             <v-img
@@ -36,29 +38,46 @@ const seasons = league.value?.seasons?.data.map((season) => {
 
         <div class="season-selecter">
           <v-select
+            v-if="seasons"
             v-model="selectedSeasonId"
             label="シーズン"
             :items="seasons"
             item-title="name"
             item-value="id"
             density="compact"
-            width="140"
             variant="underlined"
+            :loading="leaguePending"
+            style="width: 140px; display: inline-block;"
           />
         </div>
       </v-card>
 
-      <v-card style="margin-bottom: 16px;">
-        ああああ
-        ああああ
-        ああああ
-        ああああ
-        ああああ
-      </v-card>
-    </v-col>
+      <v-row justify-md="center">
+        <v-col cols="12" md="4">
+          <v-card style="margin-bottom: 16px;" :loading="seasonStatsPending">
+            <h1 style="font-size: 18px; padding: 8px 14px 0;">
+              得点ランキング
+            </h1>
+            <PlayerRanking v-if="topGoalScorers" :top-players="topGoalScorers" type="goal" />
+          </v-card>
 
-    <v-col cols="12" md="8">
-      <StandingsTable v-if="selectedSeasonId" :season-id="selectedSeasonId" />
+          <v-card style="margin-bottom: 16px;" :loading="seasonStatsPending">
+            <h1 style="font-size: 18px; padding: 8px 14px 0;">
+              アシストランキング
+            </h1>
+            <PlayerRanking v-if="topAssistScorers" :top-players="topAssistScorers" type="assist" />
+          </v-card>
+        </v-col>
+
+        <v-col cols="12" md="8">
+          <v-card :loading="seasonStandingsDataPending">
+            <h1 style="font-size: 18px; padding: 8px 14px 0;">
+              順位表
+            </h1>
+            <StandingsTable v-if="seasonStandingsData" :season-standings-data="seasonStandingsData" />
+          </v-card>
+        </v-col>
+      </v-row>
     </v-col>
   </v-row>
 </template>
@@ -73,6 +92,6 @@ div.league-profile {
 }
 
 div.season-selecter {
-  padding: 3px 100px;
+  text-align: center;
 }
 </style>
