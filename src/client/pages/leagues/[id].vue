@@ -21,6 +21,16 @@ const topGoalScorers = computed(() => {
 const topAssistScorers = computed(() => {
   return seasonStats.value?.assistscorers.data;
 });
+
+const selectedTopPlayerRanking = ref<'goal' | 'assist'>('goal');
+
+const handleChangeRankingToGoal = () => {
+  selectedTopPlayerRanking.value = 'goal';
+};
+
+const handleChangeRankingToAssist = () => {
+  selectedTopPlayerRanking.value = 'assist';
+};
 </script>
 
 <template>
@@ -56,16 +66,25 @@ const topAssistScorers = computed(() => {
         <v-col cols="12" md="4">
           <v-card style="margin-bottom: 16px;" :loading="seasonStatsPending">
             <h1 style="font-size: 18px; padding: 8px 14px 0;">
-              得点ランキング
+              トップ選手
             </h1>
-            <PlayerRanking v-if="topGoalScorers" :top-players="topGoalScorers" type="goal" />
-          </v-card>
 
-          <v-card style="margin-bottom: 16px;" :loading="seasonStatsPending">
-            <h1 style="font-size: 18px; padding: 8px 14px 0;">
-              アシストランキング
-            </h1>
-            <PlayerRanking v-if="topAssistScorers" :top-players="topAssistScorers" type="assist" />
+            <div class="buttons">
+              <v-btn variant="tonal" size="small" :active="selectedTopPlayerRanking === 'goal'" @click="handleChangeRankingToGoal">
+                得点
+              </v-btn>
+              <v-btn variant="tonal" size="small" :active="selectedTopPlayerRanking === 'assist'" @click="handleChangeRankingToAssist">
+                アシスト
+              </v-btn>
+            </div>
+
+            <div v-show="selectedTopPlayerRanking === 'goal'">
+              <PlayerRanking v-if="topGoalScorers" :top-players="topGoalScorers" type="goal" />
+            </div>
+
+            <div v-show="selectedTopPlayerRanking === 'assist'">
+              <PlayerRanking v-if="topAssistScorers" :top-players="topAssistScorers" type="assist" />
+            </div>
           </v-card>
         </v-col>
 
@@ -93,5 +112,11 @@ div.league-profile {
 
 div.season-selecter {
   text-align: center;
+}
+
+.buttons {
+  padding: 8px 14px 0;
+  display: flex;
+  gap: 6px;
 }
 </style>
