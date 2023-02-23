@@ -19,8 +19,8 @@ const topGoalScorers = computed(() => {
 });
 
 const topAssistScorers = computed(() => {
-  return seasonStats.value?.assistscorers.data
-})
+  return seasonStats.value?.assistscorers.data;
+});
 </script>
 
 <template>
@@ -55,19 +55,25 @@ const topAssistScorers = computed(() => {
       <v-row justify-md="center">
         <v-col cols="12" md="4">
           <v-card style="margin-bottom: 16px;" :loading="seasonStatsPending">
-            <h1 style="font-size: 18px; padding: 8px 14px 0;">得点ランキング</h1>
+            <h1 style="font-size: 18px; padding: 8px 14px 0;">
+              得点ランキング
+            </h1>
             <PlayerRanking v-if="topGoalScorers" :top-players="topGoalScorers" type="goal" />
           </v-card>
 
           <v-card style="margin-bottom: 16px;" :loading="seasonStatsPending">
-            <h1 style="font-size: 18px; padding: 8px 14px 0;">アシストランキング</h1>
+            <h1 style="font-size: 18px; padding: 8px 14px 0;">
+              アシストランキング
+            </h1>
             <PlayerRanking v-if="topAssistScorers" :top-players="topAssistScorers" type="assist" />
           </v-card>
         </v-col>
 
         <v-col cols="12" md="8">
           <v-card :loading="seasonStandingsDataPending">
-            <h1 style="font-size: 18px; padding: 8px 14px 0;">順位表</h1>
+            <h1 style="font-size: 18px; padding: 8px 14px 0;">
+              順位表
+            </h1>
             <StandingsTable v-if="seasonStandingsData" :season-standings-data="seasonStandingsData" />
           </v-card>
         </v-col>
