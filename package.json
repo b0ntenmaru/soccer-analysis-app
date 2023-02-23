@@ -9,7 +9,8 @@
     "lint": "eslint --ext .ts,.js,.vue .",
     "lint:fix": "eslint --ext .ts,.js,.vue . --fix",
     "typecheck": "npx nuxi typecheck .",
-    "test": "vitest"
+    "test": "vitest",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
