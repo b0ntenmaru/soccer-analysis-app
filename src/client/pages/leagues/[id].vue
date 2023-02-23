@@ -22,14 +22,12 @@ const topAssistScorers = computed(() => {
   return seasonStats.value?.assistscorers.data;
 });
 
-const selectedTopPlayerRanking = ref<'goal' | 'assist'>('goal');
+type SelectedTopPlayerRankingType = 'goal' | 'assist';
 
-const handleChangeRankingToGoal = () => {
-  selectedTopPlayerRanking.value = 'goal';
-};
+const selectedTopPlayerRanking = ref<SelectedTopPlayerRankingType>('goal');
 
-const handleChangeRankingToAssist = () => {
-  selectedTopPlayerRanking.value = 'assist';
+const handleChangeSelectedTopPlayerRanking = (type: SelectedTopPlayerRankingType) => {
+  selectedTopPlayerRanking.value = type;
 };
 </script>
 
@@ -70,10 +68,10 @@ const handleChangeRankingToAssist = () => {
             </h1>
 
             <div class="buttons">
-              <v-btn variant="tonal" size="small" :active="selectedTopPlayerRanking === 'goal'" @click="handleChangeRankingToGoal">
-                得点
+              <v-btn variant="tonal" size="small" :active="selectedTopPlayerRanking === 'goal'" @click="handleChangeSelectedTopPlayerRanking('goal')">
+                ゴール
               </v-btn>
-              <v-btn variant="tonal" size="small" :active="selectedTopPlayerRanking === 'assist'" @click="handleChangeRankingToAssist">
+              <v-btn variant="tonal" size="small" :active="selectedTopPlayerRanking === 'assist'" @click="handleChangeSelectedTopPlayerRanking('assist')">
                 アシスト
               </v-btn>
             </div>

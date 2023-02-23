@@ -234,7 +234,7 @@ export type GetSeasonStatsByIdData = {
         data: Player
       };
       /**
-       * サイト得点チーム
+       * 最多得点チーム
        */
       mostgoalsteam: {
         data: Team;
