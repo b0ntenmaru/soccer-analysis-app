@@ -224,37 +224,37 @@ export type GetSeasonStatsByIdData = {
       /**
        * 最多クリーンシートチーム
        */
-      mostcleansheetsteam: {
+      mostcleansheetsteam?: {
         data: Team;
       };
       /**
        * 最多クリーンシートキーパー
        */
-      mostcleansheetsgoalkeeper: {
+      mostcleansheetsgoalkeeper?: {
         data: Player
       };
       /**
-       * サイト得点チーム
+       * 最多得点チーム
        */
-      mostgoalsteam: {
+      mostgoalsteam?: {
         data: Team;
       };
       /**
        * 1試合あたりの最多得点チーム
        */
-      mostgoalspermatchteam: {
+      mostgoalspermatchteam?: {
         data: Team
       };
       /**
        * 最多失点チーム
        */
-      mostconcededgoalsteam: {
+      mostconcededgoalsteam?: {
         data: Team
       };
       /**
        * 最多コーナーキックチーム
        */
-      mostcornersteam: {
+      mostcornersteam?: {
         data: Team
       };
     };
