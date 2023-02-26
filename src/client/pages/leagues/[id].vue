@@ -14,22 +14,6 @@ const {
   seasonStandingsDataPending
 } = useLeagueDetail();
 
-const topGoalScorers = computed(() => {
-  return seasonStats.value?.goalscorers.data;
-});
-
-const topAssistScorers = computed(() => {
-  return seasonStats.value?.assistscorers.data;
-});
-
-type SelectedTopPlayerRankingType = 'goal' | 'assist';
-
-const selectedTopPlayerRanking = ref<SelectedTopPlayerRankingType>('goal');
-
-const handleChangeSelectedTopPlayerRanking = (type: SelectedTopPlayerRankingType) => {
-  selectedTopPlayerRanking.value = type;
-};
-
 const seasonProgress = computed(() => {
   if (seasonStats.value === null) { return; }
 
@@ -106,41 +90,7 @@ const tab = ref<'summary' | 'fixtures' | 'stats'>('summary');
       </SectionVSheet>
 
       <template v-if="tab === 'summary'">
-        <v-row justify-md="center">
-          <v-col cols="12" md="4">
-            <SectionVSheet style="margin-bottom: 16px;">
-              <h1 style="font-size: 18px; padding: 8px 14px 0;">
-                トップ選手
-              </h1>
-
-              <div class="buttons">
-                <v-btn variant="tonal" size="small" :active="selectedTopPlayerRanking === 'goal'" @click="handleChangeSelectedTopPlayerRanking('goal')">
-                  ゴール
-                </v-btn>
-                <v-btn variant="tonal" size="small" :active="selectedTopPlayerRanking === 'assist'" @click="handleChangeSelectedTopPlayerRanking('assist')">
-                  アシスト
-                </v-btn>
-              </div>
-
-              <div v-show="selectedTopPlayerRanking === 'goal'">
-                <PlayerRanking v-if="topGoalScorers" :top-players="topGoalScorers" type="goal" />
-              </div>
-
-              <div v-show="selectedTopPlayerRanking === 'assist'">
-                <PlayerRanking v-if="topAssistScorers" :top-players="topAssistScorers" type="assist" />
-              </div>
-            </SectionVSheet>
-          </v-col>
-
-          <v-col cols="12" md="8">
-            <SectionVSheet>
-              <h1 style="font-size: 18px; padding: 8px 14px 0;">
-                順位表
-              </h1>
-              <StandingsTable :season-standings-data="seasonStandingsData" />
-            </SectionVSheet>
-          </v-col>
-        </v-row>
+        <LeagueDetailSummaryTabContent :season-stats="seasonStats" :season-standings-data="seasonStandingsData" />
       </template>
     </v-col>
   </v-row>
@@ -205,11 +155,5 @@ div.league-profile-container {
       width: 100%;
     }
   }
-}
-
-.buttons {
-  padding: 8px 14px 0;
-  display: flex;
-  gap: 6px;
 }
 </style>
