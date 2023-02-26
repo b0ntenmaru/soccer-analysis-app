@@ -21,7 +21,10 @@ const seasonProgress = computed(() => {
   return (statsData.number_of_matches_played / statsData.number_of_matches) * 100;
 });
 
-const tab = ref<'summary' | 'fixtures' | 'stats'>('summary');
+const route = useRoute();
+const hash = route.hash as '#summary' | '#fixtures' | '#stats';
+
+const tab = ref<'#summary' | '#fixtures' | '#stats'>(hash);
 </script>
 
 <template>
@@ -76,22 +79,32 @@ const tab = ref<'summary' | 'fixtures' | 'stats'>('summary');
             align-tabs="center"
             density="compact"
           >
-            <v-tab value="summary">
+            <v-tab href="#summary" value="#summary">
               サマリー
             </v-tab>
-            <v-tab value="fixtures">
+            <v-tab href="#fixtures" value="#fixtures">
               マッチ
             </v-tab>
-            <v-tab value="stats">
+            <v-tab href="#stats" value="#stats">
               データ
             </v-tab>
           </v-tabs>
         </div>
       </SectionVSheet>
 
-      <template v-if="tab === 'summary'">
-        <LeagueDetailSummaryTabContent :season-stats="seasonStats" :season-standings-data="seasonStandingsData" />
-      </template>
+      <v-window v-model="tab">
+        <v-window-item value="#summary" href="#summary">
+          <LeagueDetailSummaryTabContent :season-stats="seasonStats" :season-standings-data="seasonStandingsData" />
+        </v-window-item>
+
+        <v-window-item value="#fixtures" href="#fixtures">
+          マッチ
+        </v-window-item>
+
+        <v-window-item value="#stats" href="#stats">
+          スタッツ
+        </v-window-item>
+      </v-window>
     </v-col>
   </v-row>
   <div v-else class="loading">
