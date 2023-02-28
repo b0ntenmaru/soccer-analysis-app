@@ -259,10 +259,10 @@ export type GetSeasonStatsByIdData = {
       };
     };
   };
-  goalscorers: {
-    data: Array<TopPlayer>
+  aggregatedGoalscorers: {
+    data: Array<TopPlayer>;
   };
-  assistscorers: {
+  aggregatedAssistscorers: {
     data: Array<TopPlayer>;
   };
   cardscorers: {

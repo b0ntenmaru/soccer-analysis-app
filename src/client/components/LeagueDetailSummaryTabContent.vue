@@ -16,12 +16,12 @@ const handleChangeSelectedTopPlayerRanking = (type: SelectedTopPlayerRankingType
   selectedTopPlayerRanking.value = type;
 };
 
-const topGoalScorers = computed(() => {
-  return props.seasonStats.goalscorers.data;
+const aggregatedGoalScorers = computed(() => {
+  return props.seasonStats.aggregatedGoalscorers.data;
 });
 
-const topAssistScorers = computed(() => {
-  return props.seasonStats.assistscorers.data;
+const aggregatedAssistScorers = computed(() => {
+  return props.seasonStats.aggregatedAssistscorers.data;
 });
 </script>
 
@@ -43,11 +43,11 @@ const topAssistScorers = computed(() => {
         </div>
 
         <div v-show="selectedTopPlayerRanking === 'goal'">
-          <PlayerRanking v-if="topGoalScorers" :top-players="topGoalScorers" type="goal" />
+          <PlayerRanking v-if="aggregatedGoalScorers" :top-players="aggregatedGoalScorers" type="goal" />
         </div>
 
         <div v-show="selectedTopPlayerRanking === 'assist'">
-          <PlayerRanking v-if="topAssistScorers" :top-players="topAssistScorers" type="assist" />
+          <PlayerRanking v-if="aggregatedAssistScorers" :top-players="aggregatedAssistScorers" type="assist" />
         </div>
       </SectionVSheet>
     </v-col>
