@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import SummaryTabContent from '@@/src/client/components/leagueDetailPage/SummaryTabContent.vue';
+
 definePageMeta({
   layout: 'home'
 });
@@ -94,7 +96,7 @@ const tab = ref<'#summary' | '#fixtures' | '#stats'>(hash);
 
       <v-window v-model="tab">
         <v-window-item value="#summary" href="#summary">
-          <LeagueDetailSummaryTabContent :season-stats="seasonStats" :season-standings-data="seasonStandingsData" />
+          <SummaryTabContent :season-stats="seasonStats" :season-standings-data="seasonStandingsData" />
         </v-window-item>
 
         <v-window-item value="#fixtures" href="#fixtures">
