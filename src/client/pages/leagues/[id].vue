@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import SummaryTabContent from '@@/src/client/components/leagueDetailPage/SummaryTabContent.vue';
+import StatsTabContent from '@@/src/client/components/leagueDetailPage/StatsTabContent.vue';
+
 definePageMeta({
   layout: 'home'
 });
@@ -14,22 +17,6 @@ const {
   seasonStandingsDataPending
 } = useLeagueDetail();
 
-const topGoalScorers = computed(() => {
-  return seasonStats.value?.goalscorers.data;
-});
-
-const topAssistScorers = computed(() => {
-  return seasonStats.value?.assistscorers.data;
-});
-
-type SelectedTopPlayerRankingType = 'goal' | 'assist';
-
-const selectedTopPlayerRanking = ref<SelectedTopPlayerRankingType>('goal');
-
-const handleChangeSelectedTopPlayerRanking = (type: SelectedTopPlayerRankingType) => {
-  selectedTopPlayerRanking.value = type;
-};
-
 const seasonProgress = computed(() => {
   if (seasonStats.value === null) { return; }
 
@@ -37,114 +24,14 @@ const seasonProgress = computed(() => {
   return (statsData.number_of_matches_played / statsData.number_of_matches) * 100;
 });
 
-const tab = ref<'summary' | 'fixtures' | 'stats'>('summary');
+const route = useRoute();
+const hash = route.hash as '#summary' | '#fixtures' | '#stats';
+
+const tab = ref<'#summary' | '#fixtures' | '#stats'>(hash);
 </script>
 
 <template>
-  <v-row v-if="league && seasonStats && seasonStandingsData" justify-md="center" style="margin-top: 5px;">
-    <v-col cols="12" md="12">
-      <SectionVSheet style="margin-bottom: 16px;">
-        <div class="league-profile-container">
-          <div class="league-profile">
-            <div class="league-profile-avatar">
-              <v-avatar size="100" cover rounded>
-                <v-img
-                  :src="league.logo_path"
-                  :alt="`${league.logo_path}のロゴ`"
-                />
-              </v-avatar>
-            </div>
-
-            <div class="league-profile-sub">
-              <div class="league-profile-country">
-                <v-avatar size="20" cover rounded>
-                  <v-img
-                    :src="league.country.data.image_path"
-                    :alt="`${league.country.data.name}のロゴ`"
-                  />
-                </v-avatar>
-                <span>{{ league.country.data.name }}</span>
-              </div>
-              <div class="season-progress">
-                シーズン進捗: {{ seasonStats.stats.data.number_of_matches_played }} / {{ seasonStats.stats.data.number_of_matches }} 試合終了
-              </div>
-              <v-progress-linear color="primary" :model-value="seasonProgress" :height="8" rounded />
-            </div>
-          </div>
-
-          <div class="league-season-selecter">
-            <v-select
-              v-if="seasons"
-              v-model="selectedSeasonId"
-              label="シーズン"
-              :items="seasons"
-              item-title="name"
-              item-value="id"
-              density="compact"
-              style="width: 140px; display: inline-block;"
-            />
-          </div>
-        </div>
-        <div>
-          <v-tabs
-            v-model="tab"
-            color="deep-purple-accent-4"
-            align-tabs="center"
-            density="compact"
-          >
-            <v-tab value="summary">
-              サマリー
-            </v-tab>
-            <v-tab value="fixtures">
-              マッチ
-            </v-tab>
-            <v-tab value="stats">
-              データ
-            </v-tab>
-          </v-tabs>
-        </div>
-      </SectionVSheet>
-
-      <template v-if="tab === 'summary'">
-        <v-row justify-md="center">
-          <v-col cols="12" md="4">
-            <SectionVSheet style="margin-bottom: 16px;">
-              <h1 style="font-size: 18px; padding: 8px 14px 0;">
-                トップ選手
-              </h1>
-
-              <div class="buttons">
-                <v-btn variant="tonal" size="small" :active="selectedTopPlayerRanking === 'goal'" @click="handleChangeSelectedTopPlayerRanking('goal')">
-                  ゴール
-                </v-btn>
-                <v-btn variant="tonal" size="small" :active="selectedTopPlayerRanking === 'assist'" @click="handleChangeSelectedTopPlayerRanking('assist')">
-                  アシスト
-                </v-btn>
-              </div>
-
-              <div v-show="selectedTopPlayerRanking === 'goal'">
-                <PlayerRanking v-if="topGoalScorers" :top-players="topGoalScorers" type="goal" />
-              </div>
-
-              <div v-show="selectedTopPlayerRanking === 'assist'">
-                <PlayerRanking v-if="topAssistScorers" :top-players="topAssistScorers" type="assist" />
-              </div>
-            </SectionVSheet>
-          </v-col>
-
-          <v-col cols="12" md="8">
-            <SectionVSheet>
-              <h1 style="font-size: 18px; padding: 8px 14px 0;">
-                順位表
-              </h1>
-              <StandingsTable :season-standings-data="seasonStandingsData" />
-            </SectionVSheet>
-          </v-col>
-        </v-row>
-      </template>
-    </v-col>
-  </v-row>
-  <div v-else class="loading">
+  <div v-if="seasonStatsPending && seasonStandingsDataPending" class="loading">
     <v-progress-circular
       color="primary"
       indeterminate
@@ -152,6 +39,87 @@ const tab = ref<'summary' | 'fixtures' | 'stats'>('summary');
       :width="8"
     />
   </div>
+  <template v-else>
+    <v-row v-if="league && seasonStats && seasonStandingsData" justify-md="center" style="margin-top: 5px;">
+      <v-col cols="12" md="12">
+        <SectionVSheet style="margin-bottom: 16px;">
+          <div class="league-profile-container">
+            <div class="league-profile">
+              <div class="league-profile-avatar">
+                <v-avatar size="100" cover rounded>
+                  <v-img
+                    :src="league.logo_path"
+                    :alt="`${league.logo_path}のロゴ`"
+                  />
+                </v-avatar>
+              </div>
+
+              <div class="league-profile-sub">
+                <div class="league-profile-country">
+                  <v-avatar size="20" cover rounded>
+                    <v-img
+                      :src="league.country.data.image_path"
+                      :alt="`${league.country.data.name}のロゴ`"
+                    />
+                  </v-avatar>
+                  <span>{{ league.country.data.name }}</span>
+                </div>
+                <div class="season-progress">
+                  シーズン進捗: {{ seasonStats.stats.data.number_of_matches_played }} / {{ seasonStats.stats.data.number_of_matches }} 試合終了
+                </div>
+                <v-progress-linear color="primary" :model-value="seasonProgress" :height="8" rounded />
+              </div>
+            </div>
+
+            <div class="league-season-selecter">
+              <v-select
+                v-if="seasons"
+                v-model="selectedSeasonId"
+                label="シーズン"
+                :items="seasons"
+                item-title="name"
+                item-value="id"
+                density="compact"
+                style="width: 140px; display: inline-block;"
+              />
+            </div>
+          </div>
+          <div>
+            <v-tabs
+              v-model="tab"
+              color="deep-purple-accent-4"
+              align-tabs="center"
+              density="compact"
+            >
+              <v-tab href="#summary" value="#summary">
+                サマリー
+              </v-tab>
+              <v-tab href="#fixtures" value="#fixtures">
+                マッチ
+              </v-tab>
+              <v-tab href="#stats" value="#stats">
+                スタッツ
+              </v-tab>
+            </v-tabs>
+          </div>
+        </SectionVSheet>
+
+        <v-window v-model="tab">
+          <v-window-item value="#summary" href="#summary">
+            <SummaryTabContent :season-stats="seasonStats" :season-standings-data="seasonStandingsData" />
+          </v-window-item>
+
+          <v-window-item value="#fixtures" href="#fixtures">
+            マッチ
+          </v-window-item>
+
+          <v-window-item value="#stats" href="#stats">
+            <StatsTabContent :season-stats="seasonStats.stats.data" />
+          </v-window-item>
+        </v-window>
+      </v-col>
+    </v-row>
+  </template>
 </template>
 
 <style lang="scss" scoped>
@@ -173,12 +141,13 @@ div.league-profile-container {
 
   .league-profile {
     display: flex;
+    gap: 6px;
     align-items: center;
 
     .league-profile-sub {
       display: flex;
       flex-direction: column;
-      width: 250px;
+      width: 226px;
 
       .league-profile-country {
         display: flex;
@@ -205,11 +174,5 @@ div.league-profile-container {
       width: 100%;
     }
   }
-}
-
-.buttons {
-  padding: 8px 14px 0;
-  display: flex;
-  gap: 6px;
 }
 </style>
