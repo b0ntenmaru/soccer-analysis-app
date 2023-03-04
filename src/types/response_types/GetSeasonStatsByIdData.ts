@@ -138,6 +138,9 @@ export type Stats = {
    * 最もクリーンシートが多いキーパーのクリーンシート数
    */
   goalkeeper_most_cleansheets_number: number;
+  /**
+   * 1得点にかかる時間
+   */
   goal_scored_every_minutes: number;
   /**
    * シーズン中の両チームが得点確率
@@ -214,7 +217,7 @@ export type Stats = {
    */
   avg_homegoals_per_match: number;
   /**
-   * 1試合あたりの平均アウェーゴール数
+   * 1試合あたりの平均アウェー得点数
    */
   avg_awaygoals_per_match: number;
   /**
