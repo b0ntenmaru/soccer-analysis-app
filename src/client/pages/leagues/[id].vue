@@ -9,7 +9,6 @@ const {
   selectedSeasonId,
   seasons,
   league,
-  leaguePending,
   seasonStats,
   seasonStatsPending,
   seasonStandingsData,
