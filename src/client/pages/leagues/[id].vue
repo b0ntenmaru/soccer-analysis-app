@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import SummaryTabContent from '@@/src/client/components/leagueDetailPage/SummaryTabContent.vue';
-import StatsTabContent from '@@/src/client/components/leagueDetailPage/StatsTabContent.vue';
+import SeasonStats from '~~/src/client/components/leagueDetailPage/SeasonStats.vue';
 
 definePageMeta({
   layout: 'home'
@@ -24,10 +23,29 @@ const seasonProgress = computed(() => {
   return (statsData.number_of_matches_played / statsData.number_of_matches) * 100;
 });
 
-const route = useRoute();
-const hash = route.hash as '#summary' | '#fixtures' | '#stats';
+type SelectedTopPlayerRankingType = 'goal' | 'assist';
+const selectedTopPlayerRanking = ref<SelectedTopPlayerRankingType>('goal');
 
-const tab = ref<'#summary' | '#fixtures' | '#stats'>(hash);
+const handleChangeSelectedTopPlayerRanking = (type: SelectedTopPlayerRankingType) => {
+  selectedTopPlayerRanking.value = type;
+};
+
+const aggregatedGoalScorers = computed(() => {
+  if (seasonStats.value === null) { return; }
+
+  return seasonStats.value.aggregatedGoalscorers.data;
+});
+
+const aggregatedAssistScorers = computed(() => {
+  if (seasonStats.value === null) { return; }
+
+  return seasonStats.value.aggregatedAssistscorers.data;
+});
+
+const tab = ref('summary');
+const items = [
+  'summary', 'stats'
+];
 </script>
 
 <template>
@@ -46,10 +64,10 @@ const tab = ref<'#summary' | '#fixtures' | '#stats'>(hash);
           <div class="league-profile-container">
             <div class="league-profile">
               <div class="league-profile-avatar">
-                <v-avatar size="100" cover rounded>
+                <v-avatar size="140" cover rounded>
                   <v-img
                     :src="league.logo_path"
-                    :alt="`${league.logo_path}のロゴ`"
+                    :alt="`${league.name}のロゴ`"
                   />
                 </v-avatar>
               </div>
@@ -84,39 +102,65 @@ const tab = ref<'#summary' | '#fixtures' | '#stats'>(hash);
               />
             </div>
           </div>
+
           <div>
             <v-tabs
               v-model="tab"
-              color="deep-purple-accent-4"
-              align-tabs="center"
-              density="compact"
+              color="primary"
+              grow
             >
-              <v-tab href="#summary" value="#summary">
-                サマリー
-              </v-tab>
-              <v-tab href="#fixtures" value="#fixtures">
-                マッチ
-              </v-tab>
-              <v-tab href="#stats" value="#stats">
-                スタッツ
+              <v-tab
+                v-for="item in items"
+                :key="item"
+                :value="item"
+              >
+                {{ item }}
               </v-tab>
             </v-tabs>
           </div>
         </SectionVSheet>
 
-        <v-window v-model="tab">
-          <v-window-item value="#summary" href="#summary">
-            <SummaryTabContent :season-stats="seasonStats" :season-standings-data="seasonStandingsData" />
-          </v-window-item>
+        <div v-show="tab === 'summary'">
+          <v-row justify-md="center">
+            <v-col cols="12" md="4">
+              <SectionVSheet style="margin-bottom: 16px;">
+                <h1 style="font-size: 18px; padding: 8px 14px 0;">
+                  トップ選手
+                </h1>
 
-          <v-window-item value="#fixtures" href="#fixtures">
-            マッチ
-          </v-window-item>
+                <div class="buttons">
+                  <v-btn variant="tonal" size="small" :active="selectedTopPlayerRanking === 'goal'" @click="handleChangeSelectedTopPlayerRanking('goal')">
+                    ゴール
+                  </v-btn>
+                  <v-btn variant="tonal" size="small" :active="selectedTopPlayerRanking === 'assist'" @click="handleChangeSelectedTopPlayerRanking('assist')">
+                    アシスト
+                  </v-btn>
+                </div>
 
-          <v-window-item value="#stats" href="#stats">
-            <StatsTabContent :season-stats="seasonStats.stats.data" />
-          </v-window-item>
-        </v-window>
+                <div v-show="selectedTopPlayerRanking === 'goal'">
+                  <PlayerRanking v-if="aggregatedGoalScorers" :top-players="aggregatedGoalScorers" type="goal" />
+                </div>
+
+                <div v-show="selectedTopPlayerRanking === 'assist'">
+                  <PlayerRanking v-if="aggregatedAssistScorers" :top-players="aggregatedAssistScorers" type="assist" />
+                </div>
+              </SectionVSheet>
+            </v-col>
+
+            <v-col cols="12" md="8">
+              <SectionVSheet>
+                <h1 style="font-size: 18px; padding: 8px 14px 0;">
+                  順位表
+                </h1>
+                <StandingsTable :season-standings-data="seasonStandingsData" />
+              </SectionVSheet>
+            </v-col>
+          </v-row>
+        </div>
+
+        <div v-show="tab === 'stats'">
+          <SeasonStats :season-stats="seasonStats" />
+        </div>
       </v-col>
     </v-row>
   </template>
@@ -131,12 +175,17 @@ const tab = ref<'#summary' | '#fixtures' | '#stats'>(hash);
 
 }
 
+.buttons {
+  padding: 8px 14px 0;
+  display: flex;
+  gap: 6px;
+}
+
 div.league-profile-container {
   display: flex;
   align-items: flex-end;
-  gap: 8px;
+  gap: 14px;
   padding: 14px;
-  padding-bottom: 0;
   justify-content: space-between;
 
   .league-profile {
@@ -170,6 +219,12 @@ div.league-profile-container {
 @media (max-width:767px) {
   div.league-profile-container {
     flex-direction: column;
+    align-items: center;
+
+    .league-profile {
+      flex-direction: column;
+    }
+
     .league-season-selecter {
       width: 100%;
     }
